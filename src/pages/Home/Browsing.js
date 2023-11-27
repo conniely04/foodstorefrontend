@@ -12,7 +12,7 @@ export default function HomePage() {
         href="https://fonts.googleapis.com/css?family=Cabin"
         rel="stylesheet"
       ></link>
-      <div className={styles.backgroundgradient}></div>{" "}
+      <div className={styles.backgroundgradient}></div>
       <div className={styles.imagebanner}>
         <img
           src="/thumbnail/homeimg.png"
@@ -21,7 +21,7 @@ export default function HomePage() {
         />
       </div>
       <div className={styles.categorylist}>
-        <Categories />
+        <Categories /> {/* This component should fetch and display categories */}
       </div>
       <div className="ending-line"></div>
       <Footer />

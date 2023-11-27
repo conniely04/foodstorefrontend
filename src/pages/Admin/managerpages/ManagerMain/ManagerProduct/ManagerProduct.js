@@ -1,5 +1,6 @@
-import React from "react";
-import ManagerSidebar from "../ManagerSidebar/ManagerSidebar";
+import React from 'react';
+import ManagerCategories from '../../../ManagerComponents/ManagerCategories/ManagerCategories';
+import ManagerSidebar from "../ManagerSidebar/ManagerSidebar"; // Adjust this path if necessary
 import "../ManagerProduct/ManagerProduct.css";
 
 function ProductManagement() {
@@ -7,15 +8,11 @@ function ProductManagement() {
     <div className="product-management">
       <ManagerSidebar />
       <h1>Product Management</h1>
-      <div className="product-list">
-        {/* Product items will be listed here */}
-        {/* You can replace this with dynamic content as needed */}
-        <p>Product 1</p>
-        <p>Product 2</p>
-        <p>Product 3</p>
-        {/* ... */}
+      <div className="ManagerCategories">
+        <h2>Categories</h2>
+        <ManagerCategories />
       </div>
-      {/* Add more product management features as needed */}
+      <div className="ending-line"></div>
     </div>
   );
 }

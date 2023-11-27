@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import { getfoodCategory } from "../../services/foodservices.js";
 import "../categoryitems/categoryitem.css";
 import ItemDetail from "../itemdetail/itemdetail.js";
@@ -7,27 +6,25 @@ import ItemDetail from "../itemdetail/itemdetail.js";
 const CategoryItem = ({ selectedCategory, cart, setCart }) => {
   const [selectedItem, setSelectedItem] = useState(null);
   const [items, setItems] = useState([]);
+
   useEffect(() => {
     const fetchItems = async () => {
-      const categoryItems = await getfoodCategory(selectedCategory);
-      if (categoryItems) {
-        setItems(categoryItems);
+      if (selectedCategory) {
+        const products = await getfoodCategory(selectedCategory);
+        setItems(products || []);
       }
     };
-    if (selectedCategory) {
-      fetchItems();
-    }
-    
+  
+    fetchItems();
 
     // Calculate the total item count in the cart
     const itemCount = cart.reduce((total, item) => total + item.count, 0);
-    // Update the shopping cart icon (you might need to adjust the icon class)
-    // Assuming you have an element with the id 'shopping-cart-icon'
+    // Update the shopping cart icon
     const cartIconElement = document.getElementById("shopping-cart-icon");
     if (cartIconElement) {
       cartIconElement.textContent = itemCount;
     }
-  }, [selectedCategory]);
+  }, [selectedCategory, cart]);
 
   const handleItemClick = (item) => {
     setSelectedItem(item);

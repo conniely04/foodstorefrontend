@@ -1,26 +1,26 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../categories/categories.css";
 import CategoryItem from "../categoryitems/categoryitem";
+import { getCategories } from "../../services/categoriesService"; // Import getCategories
 
 function Categories({}) {
+  const [categoriesData, setCategoriesData] = useState([]);
   const [cart, setCart] = useState([]);
-  const categoriesData = [
-    { id: 1, name: "Pantry", image: "pantry.png" },
-    { id: 2, name: "Vegetables", image: "broccoli2.png" },
-    { id: 3, name: "Fruits", image: "orange.png" },
-    { id: 4, name: "Proteins", image: "meat.png" },
-    { id: 5, name: "Grains", image: "wheat.png" },
-    { id: 6, name: "Beverages", image: "lemonade.png" },
-    { id: 7, name: "Dairy", image: "cheese.png" },
-    { id: 8, name: "Sea Food", image: "seafood.png" },
-    // Add more categories as needed
-  ];
-
-  const maxVisibleCategories = 6;
+  const [selectedCategory, setSelectedCategory] = useState("");
   const [scrollIndex, setScrollIndex] = useState(0);
-  const [selectedCategory, setSelectedCategory] = useState(
-    categoriesData[0].name
-  );
+  const maxVisibleCategories = 6;
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      const categories = await getCategories();
+      setCategoriesData(categories);
+      if (categories.length > 0) {
+        setSelectedCategory(categories[0]._id);
+      }
+    };
+    fetchCategories();
+  }, []);
+
   const scrollLeft = () => {
     if (scrollIndex > 0) {
       setScrollIndex(scrollIndex - 1);
@@ -33,30 +33,27 @@ function Categories({}) {
     }
   };
 
-  const handleCategoryClick = (category) => {
-    setSelectedCategory(category);
+  const handleCategoryClick = (categoryId) => {
+    setSelectedCategory(categoryId);
   };
 
   return (
     <div className="categories-list-container">
-      <link
-        href="https://fonts.googleapis.com/css?family=Cabin"
-        rel="stylesheet"
-      ></link>
       <div className="category-list">
         <div className="scroll-arrow left-arrow" onClick={scrollLeft}>
           <img src="thumbnail/arrow-left.png" alt="Left Arrow" />
         </div>
         {categoriesData
           .slice(scrollIndex, scrollIndex + maxVisibleCategories)
-          .map((category) => (
+          .map((category, index) => (
             <div
-              key={category.id}
+              key={index}
               className={`category-box ${
-                selectedCategory === category.name ? "selected" : ""
+                selectedCategory === category._id ? "selected" : ""
               }`}
-              onClick={() => handleCategoryClick(category.name)}
+              onClick={() => handleCategoryClick(category._id)}
             >
+              {/* Update image path as per your server setup */}
               <img
                 src={`/thumbnail/${category.image}`}
                 alt={category.name}
@@ -66,9 +63,10 @@ function Categories({}) {
             </div>
           ))}
         <div className="scroll-arrow right-arrow" onClick={scrollRight}>
-          <img src="/thumbnail/arrow-right.png" alt="Right Arrow" />
+          <img src="thumbnail/arrow-right.png" alt="Right Arrow" />
         </div>
       </div>
+      <div className="category-line"></div>
       <div className="category-item-container">
         <CategoryItem
           selectedCategory={selectedCategory}
