@@ -1,0 +1,58 @@
+.shoppingCartPage {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+  }
+  
+  .cartItems {
+    width: 70%; /* Adjust width as needed */
+  }
+  
+  .cartItem {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    width: 1000px;
+  }
+  
+  .itemImage {
+    width: 100px; /* Adjust size as needed */
+    margin-right: 20px;
+  }
+  
+  .itemDetails {
+    flex-grow: 1;
+  }
+  
+  .itemActions {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .itemActions button {
+    padding: 10px;
+    background-color: #f0f0f0; /* Adjust colors as needed */
+    border: 1px solid #ccc;
+    cursor: pointer;
+  }
+  
+  .itemActions button:hover {
+    background-color: #e0e0e0;
+  }
+  
+  .cartSummary {
+    width: 25%; /* Adjust width as needed */
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .emptyMessage {
+    text-align: center;
+    color: #888;
+  }
+  
+  /* Add more styling as needed to match the provided layout */
+  

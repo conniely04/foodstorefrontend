@@ -4,6 +4,8 @@ import { getfoodCategory } from "../../services/foodservices.js";
 import "../categoryitems/categoryitem.css";
 import ItemDetail from "../itemdetail/itemdetail.js";
 
+
+
 const CategoryItem = ({ selectedCategory, cart, setCart }) => {
   const [selectedItem, setSelectedItem] = useState(null);
   const [items, setItems] = useState([]);
@@ -112,6 +114,7 @@ const CategoryItem = ({ selectedCategory, cart, setCart }) => {
         name={selectedItem.name}
         price={selectedItem.price}
         image={selectedItem.image} // Add this line
+        foodId = {selectedItem._id}
         onClose={handleClose}
       />
     </div>

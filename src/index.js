@@ -8,6 +8,8 @@ import "./axiosConfig";
 import { AuthProvider } from "./hooks/useauth";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+// import  {CartProvider}  from './hooks/useCart';
+
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -18,6 +20,7 @@ root.render(
     ></link>
     <BrowserRouter>
       <AuthProvider>
+        {/* <CartProvider> */}
         <App />
         <ToastContainer
           position="bottom-left"
@@ -31,6 +34,7 @@ root.render(
           pauseOnHover
           theme="light"
         />
+        {/* </CartProvider> */}
       </AuthProvider>
     </BrowserRouter>
   </React.StrictMode>

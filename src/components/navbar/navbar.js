@@ -3,6 +3,7 @@ import { useState } from "react";
 import "../navbar/navbar.css";
 import { useAuth } from "../../hooks/useauth.js";
 
+
 //add when u click on somewhere else menu closes
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
