@@ -94,6 +94,7 @@ const SearchResults = () => {
               name={selectedItem.name}
               price={selectedItem.price}
               image={selectedItem.image}
+              foodId={selectedItem._id}
               onClose={handleClose}
             />
           </div>
