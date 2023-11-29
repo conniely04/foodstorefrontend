@@ -11,6 +11,7 @@ import ManagerRegister from "./pages/Admin/managerpages/ManRegister/ManagerRegis
 import ManagerLogin from "./pages/Admin/managerpages/ManagerMain/ManagerLogin/ManagerLogin";
 import Dashboard from "./pages/Admin/managerpages/ManagerMain/Dashboard.js";
 import ProductManagement from "./pages/Admin/managerpages/ManagerMain/ManagerProduct/ManagerProduct.js";
+import ShoppingCart from "./pages/ShoppingCart/ShoppingCart.js";
 
 export default function AppRoutes() {
   const { user } = useAuth();
@@ -32,6 +33,7 @@ export default function AppRoutes() {
       <Route path="/search" element={<SearchResults />} />
       <Route path="/about" element={<About />} />
       <Route path="/contact" element={<Contact />} />
+      <Route path="/shoppingcart" element={<ShoppingCart />} />
       <Route
         path="/ManagerMainPage/managerregister"
         element={<ManagerRegister />}

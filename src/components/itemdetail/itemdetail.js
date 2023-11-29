@@ -1,8 +1,21 @@
 import React, { useState } from "react";
 import "../itemdetail/itemdetail.css";
+import { useAuth } from "../../hooks/useauth";
+import "../../pages/ShoppingCart/ShoppingCart";
+import "../categoryitems/categoryitem";
 
-function ItemDetail({ name, price, description, weight, image, onClose }) {
-  const [quantity, setQuantity] = useState(0);
+function ItemDetail({
+  name,
+  price,
+  description,
+  weight,
+  image,
+  onClose,
+  foodId,
+}) {
+  const [quantity, setQuantity] = useState(1);
+  const { addCartItem } = useAuth();
+  const { removeCartItem } = useAuth();
 
   const handleIncreaseQuantity = () => {
     setQuantity(quantity + 1);
@@ -11,6 +24,22 @@ function ItemDetail({ name, price, description, weight, image, onClose }) {
   const handleDecreaseQuantity = () => {
     if (quantity >= 1) {
       setQuantity(quantity - 1);
+    }
+  };
+
+  const handleAddToCart = () => {
+    // Call addToCart with the foodId and quantity
+    addCartItem(foodId, quantity, price); // Pass the foodId to addToCart
+  };
+
+  const handleRemoveFromCart = () => {
+    console.log("Food id from itemdetail:", foodId);
+    if (quantity > 0) {
+      removeCartItem(foodId, quantity); // Adjust your removeCartItem function to handle quantity
+      // Optionally reset quantity or give feedback to the user
+    } else {
+      // Handle the case where quantity is zero
+      console.log("All items of this are removed");
     }
   };
 
@@ -32,7 +61,12 @@ function ItemDetail({ name, price, description, weight, image, onClose }) {
           <button onClick={handleIncreaseQuantity}>+</button>
         </div>
         <p className="description"> {description}</p>
-        <button className="addbutton">Add to Cart</button>
+        <button className="addbutton" onClick={handleRemoveFromCart}>
+          Remove
+        </button>
+        <button className="addbutton" onClick={handleAddToCart}>
+          Add to Cart
+        </button>
       </div>
     </div>
   );

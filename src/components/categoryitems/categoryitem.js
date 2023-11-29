@@ -1,65 +1,71 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { getfoodCategory } from "../../services/foodservices.js";
+import {
+  getUser,
+  addToCart as addToCartService,
+  removeFromCart as removeFromCartService,
+} from "../../services/userService";
 import "../categoryitems/categoryitem.css";
 import ItemDetail from "../itemdetail/itemdetail.js";
 
-const CategoryItem = ({ selectedCategory, cart, setCart }) => {
+const CategoryItem = ({ selectedCategory }) => {
   const [selectedItem, setSelectedItem] = useState(null);
   const [items, setItems] = useState([]);
+  const [cart, setCart] = useState([]);
+
+  //test
+  const [quantity, setQuantity] = useState(1);
+  const handleIncreaseQuantity = () => {
+    setQuantity(quantity + 1);
+  };
+  const handleDecreaseQuantity = () => {
+    if (quantity >= 1) {
+      setQuantity(quantity - 1);
+    }
+  };
 
   useEffect(() => {
     const fetchItems = async () => {
-      if (selectedCategory) {
-        const products = await getfoodCategory(selectedCategory);
-        setItems(products || []);
+      const categoryItems = await getfoodCategory(selectedCategory);
+      if (categoryItems) {
+        setItems(categoryItems);
       }
     };
-  
-    fetchItems();
-
-    // Calculate the total item count in the cart
-    const itemCount = cart.reduce((total, item) => total + item.count, 0);
-    // Update the shopping cart icon
-    const cartIconElement = document.getElementById("shopping-cart-icon");
-    if (cartIconElement) {
-      cartIconElement.textContent = itemCount;
+    if (selectedCategory) {
+      fetchItems();
     }
-  }, [selectedCategory, cart]);
+    // Update local cart state to reflect localStorage
+    const userCart = getUser()?.cart || [];
+    setCart(userCart);
+
+    //testing count code
+  }, [selectedCategory]);
 
   const handleItemClick = (item) => {
     setSelectedItem(item);
   };
 
-  const addToCart = (item, event) => {
+  const handleAddToCart = async (item, event) => {
     event.stopPropagation();
-    const updatedCart = [...cart];
-    const existingItem = updatedCart.find(
-      (cartItem) => cartItem.id === item.id
-    );
-    if (existingItem) {
-      existingItem.count += 1;
-    } else {
-      updatedCart.push({ ...item, count: 1 });
-    }
-    setCart(updatedCart);
+
+    await addToCartService(item.id, quantity, item.price);
+    setCart(getUser()?.cart || []);
   };
 
-  const removeFromCart = (item, event) => {
+  const handleRemoveFromCart = async (item, event) => {
     event.stopPropagation();
-    const updatedCart = [...cart];
-    const existingItem = updatedCart.find(
-      (cartItem) => cartItem.id === item.id
-    );
-    if (existingItem) {
-      if (existingItem.count === 1) {
-        const index = updatedCart.indexOf(existingItem);
-        updatedCart.splice(index, 1);
-      } else {
-        existingItem.count -= 1;
-      }
-      setCart(updatedCart);
+    console.log("Item to remove:", item._id);
+    try {
+      const updatedCart = await removeFromCartService(item._id, 1); // Assuming quantity to remove is always 1
+      setCart(updatedCart || getUser()?.cart || []);
+      console.log("CART WITH DELETED ITEM: ", updatedCart);
+    } catch (error) {
+      console.error("Error removing item from cart:", error);
+      // Optionally, handle the error (e.g., show a notification to the user)
     }
   };
+
   const handleClose = () => {
     setSelectedItem(null);
   };
@@ -83,17 +89,14 @@ const CategoryItem = ({ selectedCategory, cart, setCart }) => {
             <div className="item-count">
               <button
                 className="remove-from-cart-button"
-                onClick={(e) => removeFromCart(item, e)}
+                onClick={(e) => handleRemoveFromCart(item, e)}
               >
                 -
               </button>
-              <span className="item-count-text">
-                {cart.find((cartItem) => cartItem.id === item.id)?.count || 0}{" "}
-                lb
-              </span>
+              <span className="item-count-text"> 1 lb</span>
               <button
                 className="add-to-cart-button"
-                onClick={(e) => addToCart(item, e)}
+                onClick={(e) => handleAddToCart(item, e)}
               >
                 +
               </button>
@@ -103,15 +106,19 @@ const CategoryItem = ({ selectedCategory, cart, setCart }) => {
         ))}
       </div>
       {selectedItem && (
-  <div className="modal-overlay" onClick={handleClose}>
-    <div className="item-detail-modal" onClick={(e) => e.stopPropagation()}>
-      <ItemDetail
-        name={selectedItem.name}
-        price={selectedItem.price}
-        image={selectedItem.image} // Add this line
-        onClose={handleClose}
-      />
-    </div>
+        <div className="modal-overlay" onClick={handleClose}>
+          <div
+            className="item-detail-modal"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <ItemDetail
+              name={selectedItem.name}
+              price={selectedItem.price}
+              image={selectedItem.image} // Add this line
+              foodId={selectedItem._id}
+              onClose={handleClose}
+            />
+          </div>
         </div>
       )}
     </div>

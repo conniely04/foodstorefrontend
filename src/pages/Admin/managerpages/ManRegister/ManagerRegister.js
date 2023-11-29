@@ -17,7 +17,9 @@ export default function ManagerRegister() {
 
   useEffect(() => {
     if (!user) return;
-    returnurl ? navigate(returnurl) : navigate("/");
+    returnurl
+      ? navigate(returnurl)
+      : navigate("/ManagerMainPage/managerregister");
   }, [user]);
 
   const {
@@ -40,6 +42,7 @@ export default function ManagerRegister() {
         navigate("/ManagerMainPage/dashboard");
       } else {
         // If the server response indicates the user is not an admin, handle accordingly
+
         setPinError(
           "Registration successful, but you are not registered as an admin."
         );
