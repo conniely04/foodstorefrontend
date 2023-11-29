@@ -84,6 +84,7 @@ export const getCart = () => {
 
 export const addToCart = async (itemId, quantity, price) => {
   const user = getUser(); // Assuming this function correctly retrieves user data
+  console.log("Item successfully added");
   const response = await axios.post(
     "http://localhost:5001/api/users/addToCart",
     {
@@ -101,7 +102,7 @@ export const addToCart = async (itemId, quantity, price) => {
   const updatedCart = response.data;
   user.cart = updatedCart; // Assuming user.cart contains the cart data
   localStorage.setItem("cart", JSON.stringify(updatedCart));
-  console.log("UPDATED CART:", updatedCart);
+  console.log("UPDATED ADD CART:", updatedCart);
 
   return updatedCart; // Return the updated cart data
 };

@@ -59,7 +59,6 @@ const CategoryItem = ({ selectedCategory }) => {
     try {
       const updatedCart = await removeFromCartService(item._id, 1); // Assuming quantity to remove is always 1
       setCart(updatedCart || getUser()?.cart || []);
-      console.log("CART WITH DELETED ITEM: ", updatedCart);
     } catch (error) {
       console.error("Error removing item from cart:", error);
       // Optionally, handle the error (e.g., show a notification to the user)

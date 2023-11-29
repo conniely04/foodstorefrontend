@@ -1,47 +1,32 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext } from "react";
 import classes from "./ShoppingCartPage.module.css";
-
 import { Link } from "react-router-dom";
 import { useAuth } from "../../hooks/useauth"; // Correct capitalization
-import {
-  getUser,
-  getCart,
-  addToCart as addToCartService,
-  removeFromCart as removeFromCartService,
-} from "../../services/userService";
 
-function ShoppingCart({}) {
-  const [cart, setCart] = useAuth();
-
-  const handleAddToCart = async (foodId) => {
-    const updatedCart = await addToCartService(foodId, 1); // assuming add one item at a time
-    setCart(updatedCart);
+function ShoppingCart() {
+  const { cart, removeCartItem } = useAuth();
+  console.log("CART FROM SHOPPING CART: ", cart); // Retrieve cart data from useAuth
+  const handleRemoveFromCart = (foodId) => {
+    // Call removeCartItem with the foodId
+    removeCartItem(foodId);
   };
 
-  const handleRemoveFromCart = async (foodId) => {
-    const updatedCart = await removeFromCartService(foodId, 1); // assuming remove one item at a time
-    setCart(updatedCart);
-  };
+  const tax = (cart.totalPrice * 0.098).toFixed(2);
+  const total = tax + cart.totalPrice;
 
-  const calculateTax = (price) => {
-    return (price * 0.098).toFixed(2);
-  };
-
+  // Calculate the subtotal, totalWeight, and totalItems from cart data
   const subtotal =
     cart?.foodList?.reduce(
       (acc, item) => acc + item.quantity * item.food.price,
       0
     ) || 0;
-  const totalItems =
-    cart?.foodList?.reduce((total, item) => total + item.quantity, 0) || 0;
-  const tax = calculateTax(subtotal);
-  const total = (parseFloat(subtotal) + parseFloat(tax)).toFixed(2);
-
   const totalWeight =
     cart?.foodList?.reduce(
       (acc, item) => acc + item.quantity * item.food.weight,
       0
     ) || 0;
+  const totalItems =
+    cart?.foodList?.reduce((total, item) => total + item.quantity, 0) || 0;
 
   return (
     <div className={classes.shoppingCartPage}>
@@ -56,16 +41,26 @@ function ShoppingCart({}) {
           </Link>
         </div>
         {cart?.foodList && cart.foodList.length > 0 ? (
-          cart?.foodList?.map((item, index) => (
+          cart.foodList.map((item, index) => (
             <div key={index} className={classes.cartItem}>
-              {/* ... existing JSX for each item ... */}
-              <button onClick={() => handleAddToCart(item.food._id)}>+</button>
-              <button onClick={() => handleRemoveFromCart(item.food._id)}>
-                -
-              </button>
-              <button onClick={() => handleRemoveFromCart(item.food._id)}>
-                Remove
-              </button>
+              <img
+                loading="lazy"
+                src={`/food/${item.food.image}`}
+                alt={item.name}
+                className={classes.itemImage}
+              />
+              <div className={classes.itemDetails}>
+                <h3>{item.food.name}</h3>
+                <p>Price: ${item.food.price}</p>
+                <p>Quantity: {item.quantity}</p>
+              </div>
+              <div className={classes.itemActions}>
+                <button>+</button>
+                <button>-</button>
+                <button onClick={() => handleRemoveFromCart(item.food._id)}>
+                  Remove
+                </button>
+              </div>
             </div>
           ))
         ) : (
@@ -80,15 +75,18 @@ function ShoppingCart({}) {
           </div>
           <div className={classes.summaryRow}>
             <span>Subtotal:</span>
-            <span>${subtotal.toFixed(2)}</span>
+            <span>${cart.totalPrice.toFixed(2)}</span>
           </div>
           <div className={classes.summaryRow}>
-            <span>Tax:</span>
-            <span> ${tax}</span>
+            <span>tax:</span>
+            <span> $ {tax}</span>
           </div>
           <div className={classes.summaryRow}>
             <span>Total:</span>
-            <span> ${total}</span>
+            <span>
+              {" "}
+              ${(parseFloat(tax) + parseFloat(cart.totalPrice)).toFixed(2)}
+            </span>
           </div>
           <div className={classes.summaryRow}>
             <span>Total Weight:</span>
