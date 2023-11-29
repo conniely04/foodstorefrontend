@@ -31,12 +31,12 @@ function ShoppingCart() {
         [item.food._id]: prev[item.food._id] - 1,
       }));
     } else {
-      handleRemoveFromCart(item.food._id);
+      handleRemoveFromCart(item.food._id.toString(), "1");
     }
   };
 
-  const handleRemoveFromCart = (foodId) => {
-    removeCartItem(foodId);
+  const handleRemoveFromCart = (foodId, theQuantity) => {
+    removeCartItem(foodId, theQuantity);
     setItemQuantities((prev) => {
       const newQuantities = { ...prev };
       delete newQuantities[foodId];
@@ -90,7 +90,7 @@ function ShoppingCart() {
               <div className={classes.itemActions}>
                 <button onClick={() => handleIncreaseQuantity(item)}>+</button>
                 <button onClick={() => handleDecreaseQuantity(item)}>-</button>
-                <button onClick={() => handleRemoveFromCart(item)}>
+                <button onClick={() => handleRemoveFromCart(item.food._id.toString(), item.quantity)}>
                   Remove
                 </button>
               </div>
