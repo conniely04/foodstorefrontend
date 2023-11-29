@@ -1,14 +1,47 @@
-import React, { useContext } from "react";
+import React, { useState, useContext } from "react";
 import classes from "./ShoppingCartPage.module.css";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../hooks/useauth"; // Correct capitalization
 
 function ShoppingCart() {
-  const { cart, removeCartItem } = useAuth();
+  const { cart, addCartItem, removeCartItem } = useAuth();
+  const [quantity, setQuantity] = useState(1);
   console.log("CART FROM SHOPPING CART: ", cart); // Retrieve cart data from useAuth
+
+  const [itemQuantities, setItemQuantities] = useState(
+    cart.foodList.reduce((acc, item) => {
+      acc[item.food._id] = item.quantity;
+      return acc;
+    }, {})
+  );
+
+  const handleIncreaseQuantity = (item) => {
+    addCartItem(item.food._id, 1, item.food.price);
+    setItemQuantities((prev) => ({
+      ...prev,
+      [item.food._id]: prev[item.food._id] + 1,
+    }));
+  };
+
+  const handleDecreaseQuantity = (item) => {
+    if (itemQuantities[item.food._id] > 1) {
+      addCartItem(item.food._id, -1, item.food.price);
+      setItemQuantities((prev) => ({
+        ...prev,
+        [item.food._id]: prev[item.food._id] - 1,
+      }));
+    } else {
+      handleRemoveFromCart(item.food._id);
+    }
+  };
+
   const handleRemoveFromCart = (foodId) => {
-    // Call removeCartItem with the foodId
     removeCartItem(foodId);
+    setItemQuantities((prev) => {
+      const newQuantities = { ...prev };
+      delete newQuantities[foodId];
+      return newQuantities;
+    });
   };
 
   const tax = (cart.totalPrice * 0.098).toFixed(2);
@@ -55,9 +88,9 @@ function ShoppingCart() {
                 <p>Quantity: {item.quantity}</p>
               </div>
               <div className={classes.itemActions}>
-                <button>+</button>
-                <button>-</button>
-                <button onClick={() => handleRemoveFromCart(item.food._id)}>
+                <button onClick={() => handleIncreaseQuantity(item)}>+</button>
+                <button onClick={() => handleDecreaseQuantity(item)}>-</button>
+                <button onClick={() => handleRemoveFromCart(item)}>
                   Remove
                 </button>
               </div>
