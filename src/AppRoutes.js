@@ -15,6 +15,8 @@ import ShoppingCart from "./pages/ShoppingCart/ShoppingCart.js";
 import Checkout from "./pages/Checkout/checkout.js";
 import Tracking from "./pages/OrderTrack/ordertrack.js";
 
+import OrderTracking from "./pages/Admin/managerpages/ManagerMain/Tracking/OrderTracking.js";
+
 export default function AppRoutes() {
   const { user } = useAuth();
   const location = useLocation();
@@ -73,6 +75,9 @@ export default function AppRoutes() {
         path="/ManagerMainPage/product-management"
         element={ProtectedRoute({ children: <ProductManagement /> })}
       />
+     <Route
+        path = "/ManagerMainPage/tracking"
+        element = {ProtectedRoute({children: <OrderTracking />})} />
     </Routes>
   );
 }

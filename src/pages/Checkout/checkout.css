@@ -1,58 +1,98 @@
-/*Checkout.css */
-
 .checkout-page-main {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   padding: 20px;
-  width: 100%;
   max-width: 75%;
+  /* margin: 0 auto; */
   margin: 65px auto 0 auto;
   background: #f8f8f8;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  min-height: calc(100vh - 65px);
 }
 
-/* Ensure all child elements have no excessive margins or paddings that could disrupt the layout */
-.customer-info,
-.payment-info,
-.billing-address,
-.current-cart {
+.checkout-title {
+  text-align: left; /* Align title to the left */
   margin-bottom: 20px;
-  padding: 0;
-  width: 30%; /* Ensure child elements do not exceed the container's width */
+  font-size: 28px;
 }
 
-/* Adjust input fields to not overflow their container */
-input {
-  width: calc(100% - 20px); /* Subtract any padding or border widths */
+.section {
+  padding-right: 50%;
+  margin-bottom: 20px;
+  text-align: left; /* Align section content to the left */
+}
+
+.section-title {
+  padding-right: 80%;
+  margin-bottom: 10px;
+  text-align: left; /* Align section titles to the left */
+}
+
+.input-container {
+  padding-right: 100%;
+  width: calc(80% - 20px); /* Subtract any padding or border widths */
   margin: 10px 0;
+  padding: 5px;
+  margin-bottom: 10px;
+  /* Remove display: flex; so that inputs naturally align left */
 }
 
-/* Update this as per the actual layout requirements */
-.card-images img {
-  width: 50px; /* Adjust as needed */
-  margin-right: 10px;
+.checkout-input {
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%; /* Ensure inputs stretch to full width */
 }
 
-.checkout-button-page {
-  background-color: #005823; /* Green */
-  border: none;
+.card-images {
+  padding-right: 70%;
+  margin-bottom: 20px;
+  /* Removed justify-content to align images to the start (left) */
+}
+
+.payment-card {
+  height: 20px; /* Adjust the size as needed */
+  margin-right: 10px; /* Space between cards */
+}
+
+.cart-total-container {
+  font-size: 20px;
+  width: 100%;
+  padding: 10px;
+  border-top: 1px solid #ccc;
+}
+
+.checkout1-button {
+  background-color: #005823;
   color: white;
+  border: none;
+  cursor: pointer;
+  margin-top: 20px;
+  align-self: flex-start; /* Align button to the start of the flex container */
   padding: 15px 32px;
   text-align: center;
   text-decoration: none;
-  display: inline-block;
   font-size: 16px;
   margin: 4px 2px;
   cursor: pointer;
+  display: inline-block;
+  margin-right: 90%;
 }
 
-/* Additional styling can be added as needed */
+/* Responsive design */
 @media (max-width: 768px) {
   .checkout-page-main {
-    width: 95%;
+    max-width: 90%;
     padding: 10px;
+  }
+
+  .checkout-input,
+  .checkout-button {
+    padding: 8px;
+  }
+
+  .payment-card {
+    height: auto; /* Adjust for responsive design */
   }
 }

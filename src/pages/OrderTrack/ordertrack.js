@@ -2,38 +2,34 @@ import React, { useState } from "react";
 import "../OrderTrack/ordertrack.css";
 
 function Tracking() {
-  const backgroundImageUrl = "/images/map.png";
+  const backgroundImageUrl = "/thumbnail/map.png"; // Make sure this URL points to your actual map image
   const [progress, setProgress] = useState(0);
 
   const containerStyle = {
     backgroundImage: `url(${backgroundImageUrl})`,
+    // Add additional styles as needed
   };
 
   const stages = [
     "Order Accepted",
     "Preparing Order",
-    "Order Shipped",
     "On the Way",
     "Delivered",
   ];
 
   return (
     <div className="background-container" style={containerStyle}>
-      <div>
-        <h1 className="thank-you-text">Thank you</h1>
-      </div>
+      <h1 className="thank-you-text">Thank You!</h1>
       <div className="delivery-progress">
         {stages.map((stage, index) => (
           <div
             key={index}
-            className={`stage ${index === progress ? "completed" : ""}`}
+            className={`stage ${index <= progress ? "completed" : ""}`}
             onClick={() => setProgress(index)}
           >
-            {index < progress ? (
-              <span>✔</span>
-            ) : (
-              <input type="checkbox" checked={index === progress} readOnly />
-            )}
+            <div className={`circle ${index <= progress ? "circle-completed" : ""}`}>
+              {index < progress ? <span className="checkmark">✔</span> : null}
+            </div>
             <p>{stage}</p>
           </div>
         ))}

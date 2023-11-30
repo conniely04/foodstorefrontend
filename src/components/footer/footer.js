@@ -5,17 +5,17 @@ import "../footer/footer.css";
 const Footer = () => {
   return (
     <div className="container">
-      <div className="sections">
-        <div className="section">
+      <div className="footer-sections">
+        <div className="footer-section">
           <p className="title">HOURS</p>
           <p className="text">We are Open 24 hours</p>
         </div>
-        <div className="section">
+        <div className="footer-section">
           <p className="title">ABOUT US</p>
 
           <p className="text">Learn more about our Story!</p>
         </div>
-        <div className="section">
+        <div className="footer-section">
           <p className="title">LET'S GET SOCIAL !</p>
 
           <div className="social-icons">
