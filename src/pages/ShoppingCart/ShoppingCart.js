@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import classes from "./ShoppingCartPage.module.css";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../hooks/useauth"; // Correct capitalization
+import { toast } from "react-toastify";
 
 function ShoppingCart() {
   const { cart, addCartItem, removeCartItem } = useAuth();
@@ -23,6 +24,8 @@ function ShoppingCart() {
         [item.food._id]: prev[item.food._id] + 1,
       }));
       // Return the updated cart here if needed
+      toast.success("Item Added to Cart");
+
       return updatedCart;
     } catch (error) {
       console.error("Could not increase item quantity:", error);
@@ -37,6 +40,7 @@ function ShoppingCart() {
         ...prev,
         [item.food._id]: prev[item.food._id] - 1,
       }));
+      toast.info("Removed from Cart");
     } else {
       handleRemoveFromCart(item.food._id.toString(), "1");
     }
@@ -64,11 +68,9 @@ function ShoppingCart() {
   const tax = parseFloat((subtotal * taxRate).toFixed(2));
 
   // Calculate total weight
-  const totalWeight =
-    cart?.foodList?.reduce(
-      (acc, item) => acc + item.quantity * item.food.weight,
-      0
-    ) || 0;
+  const totalWeight = cart.foodList.reduce((accumulator, currentItem) => {
+    return accumulator + currentItem.quantity;
+  }, 0);
 
   // Calculate total items
   const totalItems =

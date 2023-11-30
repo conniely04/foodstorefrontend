@@ -8,6 +8,11 @@ import SearchBar from "../Search/search";
 
 //add when u click on somewhere else menu closes
 const Navbar = () => {
+  const { cart } = useAuth();
+  const totalQuantity = cart.foodList.reduce((accumulator, currentItem) => {
+    return accumulator + currentItem.quantity;
+  }, 0);
+
   const [isOpen, setIsOpen] = useState(false);
   const { user, logout } = useAuth();
   const toggleMenu = () => {
@@ -98,16 +103,19 @@ const Navbar = () => {
           </div>
 
           {user && (
-            <li className="shopping-cart">
-              <CustomLink className="headers" to="/ShoppingCart">
-                <img
-                  src="/thumbnail/cart.png"
-                  alt="Shopping Cart"
-                  className="shopping-cart-icon"
-                />
-              </CustomLink>
-            </li>
+            <div>
+              <li className="shopping-cart">
+                <CustomLink className="headers" to="/ShoppingCart">
+                  <img
+                    src="/thumbnail/cart.png"
+                    alt="Shopping Cart"
+                    className="shopping-cart-icon"
+                  />
+                </CustomLink>
+              </li>
+            </div>
           )}
+          {user && <divc className="quantamt">({totalQuantity} Items)</divc>}
         </ul>
       </nav>
     </div>

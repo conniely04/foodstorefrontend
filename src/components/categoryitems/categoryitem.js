@@ -8,6 +8,8 @@ import {
 } from "../../services/userService";
 import "../categoryitems/categoryitem.css";
 import ItemDetail from "../itemdetail/itemdetail.js";
+import { toast } from "react-toastify";
+import { useAuth } from "../../hooks/useauth.js";
 
 const CategoryItem = ({ selectedCategory }) => {
   const [selectedItem, setSelectedItem] = useState(null);
@@ -51,6 +53,7 @@ const CategoryItem = ({ selectedCategory }) => {
 
     await addToCartService(item.id, quantity, item.price);
     setCart(getUser()?.cart || []);
+    toast.success("Item Added to Cart");
   };
 
   const handleRemoveFromCart = async (item, event) => {
@@ -59,7 +62,9 @@ const CategoryItem = ({ selectedCategory }) => {
     try {
       const updatedCart = await removeFromCartService(item._id, 1); // Assuming quantity to remove is always 1
       setCart(updatedCart || getUser()?.cart || []);
+      toast.info("Item Removed");
     } catch (error) {
+      toast.error("No Items To Remove");
       console.error("Error removing item from cart:", error);
       // Optionally, handle the error (e.g., show a notification to the user)
     }

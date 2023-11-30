@@ -1,12 +1,23 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import { useAuth } from "../../hooks/useauth.js";
 import ItemDetail from "../../components/itemdetail/itemdetail.js";
 import "../Searchresult/searchresult.css";
 import { search as searchFood } from "../../services/foodservices";
+import { toast } from "react-toastify";
+import {
+  getUser,
+  addToCart,
+  removeFromCart,
+} from "../../services/userService.js";
 
 const SearchResults = () => {
   const [results, setResults] = useState([]);
   const [selectedItem, setSelectedItem] = useState(null);
+  const [quantity, setQuantity] = useState(1);
+  const [items, setItems] = useState([]);
+  const [cart, setCart] = useState([]);
+  const { addCartItem, removeCartItem } = useAuth();
   const { search } = useLocation();
   const query = new URLSearchParams(search).get("query");
 
@@ -25,24 +36,26 @@ const SearchResults = () => {
     }
   }, [query]);
 
-  const handleIncrement = (item, e) => {
-    e.stopPropagation();
-    setResults(
-      results.map((result) =>
-        result.id === item.id ? { ...result, count: result.count + 1 } : result
-      )
-    );
+  const handleIncrement = async (item, event) => {
+    event.stopPropagation();
+
+    await addToCart(item.id, quantity, item.price);
+    setCart(getUser()?.cart || []);
+    toast.success("Item Added to Cart");
   };
 
-  const handleDecrement = (item, e) => {
-    e.stopPropagation();
-    setResults(
-      results.map((result) =>
-        result.id === item.id
-          ? { ...result, count: Math.max(result.count - 1, 0) }
-          : result
-      )
-    );
+  const handleDecrement = async (item, event) => {
+    event.stopPropagation();
+    console.log("Item to remove:", item._id);
+    try {
+      const updatedCart = await removeFromCart(item._id, 1); // Assuming quantity to remove is always 1
+      setCart(updatedCart || getUser()?.cart || []);
+      toast.info("Item removed from Cart");
+    } catch (error) {
+      toast.error("No Items to Remove");
+      console.error("Error removing item from cart:", error);
+      // Optionally, handle the error (e.g., show a notification to the user)
+    }
   };
 
   const handleSelectItem = (item) => {
@@ -79,7 +92,7 @@ const SearchResults = () => {
                   >
                     -
                   </button>
-                  <span className="item-count-text">{result.count} lb</span>
+                  <span className="item-count-text">1 lb</span>
                   <button
                     className="add-to-cart-button"
                     onClick={(e) => handleIncrement(result, e)}

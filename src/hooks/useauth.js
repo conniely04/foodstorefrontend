@@ -44,12 +44,8 @@ export const AuthProvider = ({ children }) => {
         ...prevAuthState,
         cart: updatedCart,
       }));
-      if (updatedCart) {
-        toast.success("Item added to cart!");
-      } else {
-        toast.info("Error adding item!");
-      }
     } catch (error) {
+      toast.info("Error adding item!");
       console.error("Error adding to cart:", error);
       // Handle error (e.g., show a notification to the user)
     }
@@ -65,11 +61,7 @@ export const AuthProvider = ({ children }) => {
         cart: updatedCart,
       }));
       console.log("UPDATED CART AFTER REMOVAL: ", updatedCart);
-      if (updatedCart) {
-        toast.info("Removed item from cart!");
-      } else {
-        toast.info("All items have been removed!");
-      }
+      toast.info("Removed item from cart!");
     } catch (error) {
       console.error("Error removing item from cart:", error);
       // Handle error (e.g., show a notification to the user)
