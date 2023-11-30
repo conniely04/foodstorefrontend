@@ -1,11 +1,11 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import classes from "./ShoppingCartPage.module.css";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../hooks/useauth"; // Correct capitalization
 
 function ShoppingCart() {
   const { cart, addCartItem, removeCartItem } = useAuth();
-  const [quantity, setQuantity] = useState(1);
+
   console.log("CART FROM SHOPPING CART: ", cart); // Retrieve cart data from useAuth
 
   const [itemQuantities, setItemQuantities] = useState(
@@ -15,12 +15,19 @@ function ShoppingCart() {
     }, {})
   );
 
-  const handleIncreaseQuantity = (item) => {
-    addCartItem(item.food._id, 1, item.food.price);
-    setItemQuantities((prev) => ({
-      ...prev,
-      [item.food._id]: prev[item.food._id] + 1,
-    }));
+  const handleIncreaseQuantity = async (item) => {
+    try {
+      const updatedCart = await addCartItem(item.food._id, 1, item.food.price);
+      setItemQuantities((prev) => ({
+        ...prev,
+        [item.food._id]: prev[item.food._id] + 1,
+      }));
+      // Return the updated cart here if needed
+      return updatedCart;
+    } catch (error) {
+      console.error("Could not increase item quantity:", error);
+      // Handle the error, e.g., show an error message to the user
+    }
   };
 
   const handleDecreaseQuantity = (item) => {
@@ -44,23 +51,47 @@ function ShoppingCart() {
     });
   };
 
-  const tax = (cart.totalPrice * 0.098).toFixed(2);
-  const total = tax + cart.totalPrice;
+  //TOTAL AMOUNT CALCULATIONS
 
-  // Calculate the subtotal, totalWeight, and totalItems from cart data
   const subtotal =
     cart?.foodList?.reduce(
       (acc, item) => acc + item.quantity * item.food.price,
       0
     ) || 0;
+
+  // Calculate the tax (assuming subtotal is already in dollars)
+  const taxRate = 0.098;
+  const tax = parseFloat((subtotal * taxRate).toFixed(2));
+
+  // Calculate total weight
   const totalWeight =
     cart?.foodList?.reduce(
       (acc, item) => acc + item.quantity * item.food.weight,
       0
     ) || 0;
+
+  // Calculate total items
   const totalItems =
     cart?.foodList?.reduce((total, item) => total + item.quantity, 0) || 0;
 
+  // Calculate weight fee
+  const weightthreshold = 20; // This should be in weight units (e.g., pounds), not in dollars
+  const weightfee = 5;
+  const weightfeeapplicable = totalWeight > weightthreshold;
+  const totalFee = weightfeeapplicable ? weightfee : 0;
+
+  // Calculate the final total
+  const finalTotal = parseFloat(subtotal) + tax + totalFee;
+
+  console.log("Subtotal:", subtotal);
+  console.log("Tax:", tax);
+  console.log("Total Weight:", totalWeight);
+  console.log("Weight Fee:", totalFee);
+
+  localStorage.setItem("finalTotal", finalTotal);
+  console.log("Final Total:", finalTotal);
+
+  //JSX BEING RETURNED
   return (
     <div className={classes.shoppingCartPage}>
       <div className={classes.topBar}>
@@ -90,7 +121,14 @@ function ShoppingCart() {
               <div className={classes.itemActions}>
                 <button onClick={() => handleIncreaseQuantity(item)}>+</button>
                 <button onClick={() => handleDecreaseQuantity(item)}>-</button>
-                <button onClick={() => handleRemoveFromCart(item.food._id.toString(), item.quantity)}>
+                <button
+                  onClick={() =>
+                    handleRemoveFromCart(
+                      item.food._id.toString(),
+                      item.quantity
+                    )
+                  }
+                >
                   Remove
                 </button>
               </div>
@@ -108,22 +146,24 @@ function ShoppingCart() {
           </div>
           <div className={classes.summaryRow}>
             <span>Subtotal:</span>
-            <span>${cart.totalPrice.toFixed(2)}</span>
+            <span>${subtotal.toFixed(2)}</span>
           </div>
           <div className={classes.summaryRow}>
-            <span>tax:</span>
-            <span> $ {tax}</span>
+            <span>Tax:</span>
+            <span>${tax.toFixed(2)}</span>
+          </div>
+
+          <div className={classes.summaryRow}>
+            <span>Total Weight:</span>
+            <span>{totalWeight} lbs</span>
+          </div>
+          <div className={classes.summaryRow}>
+            <span>Weight Fee:</span>
+            <span>${totalFee}</span>
           </div>
           <div className={classes.summaryRow}>
             <span>Total:</span>
-            <span>
-              {" "}
-              ${(parseFloat(tax) + parseFloat(cart.totalPrice)).toFixed(2)}
-            </span>
-          </div>
-          <div className={classes.summaryRow}>
-            <span>Total Weight:</span>
-            <span>{totalItems} lbs</span>
+            <span>${finalTotal.toFixed(2)}</span>
           </div>
           <Link to="/checkout" className={classes.checkoutButton}>
             Checkout

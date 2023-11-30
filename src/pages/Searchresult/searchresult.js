@@ -14,7 +14,7 @@ const SearchResults = () => {
     const fetchResults = async () => {
       try {
         const data = await searchFood(query);
-        setResults(data.map(item => ({ ...item, count: 0 })));
+        setResults(data.map((item) => ({ ...item, count: 0 })));
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -27,19 +27,25 @@ const SearchResults = () => {
 
   const handleIncrement = (item, e) => {
     e.stopPropagation();
-    setResults(results.map(result => 
-      result.id === item.id ? { ...result, count: result.count + 1 } : result
-    ));
+    setResults(
+      results.map((result) =>
+        result.id === item.id ? { ...result, count: result.count + 1 } : result
+      )
+    );
   };
 
   const handleDecrement = (item, e) => {
     e.stopPropagation();
-    setResults(results.map(result => 
-      result.id === item.id ? { ...result, count: Math.max(result.count - 1, 0) } : result
-    ));
+    setResults(
+      results.map((result) =>
+        result.id === item.id
+          ? { ...result, count: Math.max(result.count - 1, 0) }
+          : result
+      )
+    );
   };
 
-  const handleSelectItem = item => {
+  const handleSelectItem = (item) => {
     setSelectedItem(item);
   };
 
@@ -56,7 +62,9 @@ const SearchResults = () => {
             results.map((result) => (
               <div
                 key={result.id}
-                className={`item-box ${selectedItem === result ? "selected" : ""}`}
+                className={`item-box ${
+                  selectedItem === result ? "selected" : ""
+                }`}
                 onClick={() => handleSelectItem(result)}
               >
                 <div
@@ -89,7 +97,10 @@ const SearchResults = () => {
       </div>
       {selectedItem && (
         <div className="modal-overlay" onClick={handleClose}>
-          <div className="item-detail-modal" onClick={(e) => e.stopPropagation()}>
+          <div
+            className="item-detail-modal"
+            onClick={(e) => e.stopPropagation()}
+          >
             <ItemDetail
               name={selectedItem.name}
               price={selectedItem.price}

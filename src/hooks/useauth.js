@@ -15,6 +15,7 @@ export const AuthProvider = ({ children }) => {
     user: userService.getUser() || {},
     cart: userService.getCart() || {}, // Assuming you have a method to get the cart from local storage
   });
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -43,6 +44,11 @@ export const AuthProvider = ({ children }) => {
         ...prevAuthState,
         cart: updatedCart,
       }));
+      if (updatedCart) {
+        toast.success("Item added to cart!");
+      } else {
+        toast.info("Error adding item!");
+      }
     } catch (error) {
       console.error("Error adding to cart:", error);
       // Handle error (e.g., show a notification to the user)
@@ -58,6 +64,12 @@ export const AuthProvider = ({ children }) => {
         ...prevAuthState,
         cart: updatedCart,
       }));
+      console.log("UPDATED CART AFTER REMOVAL: ", updatedCart);
+      if (updatedCart) {
+        toast.info("Removed item from cart!");
+      } else {
+        toast.info("All items have been removed!");
+      }
     } catch (error) {
       console.error("Error removing item from cart:", error);
       // Handle error (e.g., show a notification to the user)
@@ -114,11 +126,39 @@ export const AuthProvider = ({ children }) => {
     toast.success("Logout Successful");
   };
 
+  //ORDER CODE
+  const createOrder = async (orderDetails) => {
+    console.log("ORDER DATA FROM AUTH.JS:", orderDetails);
+    console.log("USER", user.id);
+
+    try {
+      // Ensure that there is a logged-in user
+      if (!authState.user) {
+        toast.info("No user. Please Log In!");
+      }
+      if (!authState.user) {
+        throw new Error("No user logged in");
+      }
+      // Add the user's ID to the order data
+      const orderData = {
+        ...orderDetails,
+        user: user.id, // Assuming that the user object has an _id field
+      };
+      console.log("ORDER DATA:", orderData);
+      toast.success("Order Succesfully Placed!");
+      userService.placeOrder(orderData);
+      // ... rest of your code ...
+    } catch (error) {
+      throw error; // Re-throw the error to be handled by the caller
+    }
+  };
+
   return (
     <AuthContext.Provider
       value={{
         cart,
         ...authState,
+        createOrder,
         addCartItem,
         removeCartItem,
         user,

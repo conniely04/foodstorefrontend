@@ -1,0 +1,62 @@
+.background-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+  color: white;
+}
+
+.thank-you-text {
+  background-color: rgb(4, 73, 39);
+  padding: 20px;
+  margin-top: 20px;
+  margin-left: 20px;
+  font-size: 64px;
+  color: white;
+  border-radius: 20px;
+}
+
+.delivery-progress {
+  display: flex;
+  align-items: center;
+}
+
+.stage {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 0 10px;
+}
+
+/* Add the following style for the checkbox */
+.stage input[type="checkbox"] {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgb(4, 73, 39); /* Set border color to match the green color */
+  border-radius: 3px;
+  margin-right: 5px;
+  background-color: white;
+  cursor: pointer;
+}
+
+.stage input[type="checkbox"]:checked {
+  background-color: rgb(4, 73, 39);
+  border-color: rgb(4, 73, 39);
+}
+
+.stage.completed {
+  color: black;
+}
+
+.stage p {
+  margin: 0;
+  color: black;
+}
+
+.stage span {
+  margin-right: 5px;
+}

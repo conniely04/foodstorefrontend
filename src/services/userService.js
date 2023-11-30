@@ -31,6 +31,7 @@ export const login = async (email, password) => {
   if (data.cart) {
     localStorage.setItem("cart", JSON.stringify(data.cart));
   }
+
   return data;
 };
 
@@ -84,6 +85,8 @@ export const getCart = () => {
 
 export const addToCart = async (itemId, quantity, price) => {
   const user = getUser(); // Assuming this function correctly retrieves user data
+
+  //working code
   console.log("Item successfully added");
   const response = await axios.post(
     "http://localhost:5001/api/users/addToCart",
@@ -129,5 +132,63 @@ export const removeFromCart = async (foodId, quantity) => {
   user.cart = updatedCart; // Assuming user.cart contains the cart data
   localStorage.setItem("cart", JSON.stringify(updatedCart));
   console.log("DELETED ITEM CART: ", updatedCart);
+
   return updatedCart; // Return the updated cart data
+};
+
+export const placeOrder = async (orderData) => {
+  const user = getUser();
+  console.log("USERSERVICE DATA:", orderData);
+
+  try {
+    const { data } = await axios.post(
+      "http://localhost:5001/api/users/createorder",
+      orderData,
+      {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      }
+    );
+
+    // Assuming the backend sends back the created order details
+    if (data.order) {
+      console.log("Order response data:", data); // Log or handle the response as needed
+    }
+    console.log("NEW ORDER DATA:", data);
+    return data;
+  } catch (error) {
+    console.error("Error placing order:", error);
+    throw error; // Propagate the error for the caller to handle
+  }
+};
+
+//test code
+
+export const clearCart = async () => {
+  try {
+    const currentCart = JSON.parse(localStorage.getItem("cart"));
+
+    if (currentCart && currentCart.foodList) {
+      // Iterate over all items in the foodList and remove each one
+      for (const item of currentCart.foodList) {
+        await removeFromCart(item.food._id, item.quantity);
+      }
+
+      // Update the cart in local storage to reflect an empty cart
+      const newCart = {
+        ...currentCart,
+        foodList: [],
+        totalPrice: 0,
+      };
+
+      localStorage.setItem("cart", JSON.stringify(newCart));
+      console.log("Cart reset to new empty state", newCart);
+    }
+
+    return true;
+  } catch (error) {
+    console.error("Error resetting cart:", error);
+    throw error;
+  }
 };

@@ -12,12 +12,26 @@ import ManagerLogin from "./pages/Admin/managerpages/ManagerMain/ManagerLogin/Ma
 import Dashboard from "./pages/Admin/managerpages/ManagerMain/Dashboard.js";
 import ProductManagement from "./pages/Admin/managerpages/ManagerMain/ManagerProduct/ManagerProduct.js";
 import ShoppingCart from "./pages/ShoppingCart/ShoppingCart.js";
+import Checkout from "./pages/Checkout/checkout.js";
+import Tracking from "./pages/OrderTrack/ordertrack.js";
 
 export default function AppRoutes() {
   const { user } = useAuth();
   const location = useLocation();
   const ProtectedRoute = ({ children }) => {
     return user && user.isAdmin ? (
+      children
+    ) : (
+      // Redirect non-manager users to a different route (e.g., customer login)
+      <Navigate to="/managerlogin" replace state={{ from: location }} />
+    );
+  };
+
+  const ProtectedRouteCart = ({ children }) => {
+    const { user } = useAuth(); // Get the user from your auth context or state
+    const location = useLocation(); // Get the current location
+
+    return user ? (
       children
     ) : (
       // Redirect non-manager users to a different route (e.g., customer login)
@@ -33,7 +47,19 @@ export default function AppRoutes() {
       <Route path="/search" element={<SearchResults />} />
       <Route path="/about" element={<About />} />
       <Route path="/contact" element={<Contact />} />
-      <Route path="/shoppingcart" element={<ShoppingCart />} />
+      <Route
+        path="/shoppingcart"
+        element={ProtectedRouteCart({ children: <ShoppingCart /> })}
+      ></Route>
+      <Route
+        path="/checkout"
+        element={ProtectedRouteCart({ children: <Checkout /> })}
+      ></Route>
+      <Route
+        path="/ordertracking"
+        element={ProtectedRouteCart({ children: <Tracking /> })}
+      ></Route>
+      <Route path="/ordertracking" element={<Tracking />} />
       <Route
         path="/ManagerMainPage/managerregister"
         element={<ManagerRegister />}

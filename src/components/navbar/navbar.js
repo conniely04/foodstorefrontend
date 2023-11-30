@@ -1,6 +1,8 @@
 import { Link, Navigate, useMatch, useResolvedPath } from "react-router-dom";
 import { useState } from "react";
 import "../navbar/navbar.css";
+import { toast } from "react-toastify";
+
 import { useAuth } from "../../hooks/useauth.js";
 import SearchBar from "../Search/search";
 
@@ -62,15 +64,18 @@ const Navbar = () => {
                   Login
                 </CustomLink>
               )}
-              <CustomLink className="contentin" to="/Tracking">
-                Orders
-              </CustomLink>
+
               <CustomLink className="contentin" to="/About">
                 About
               </CustomLink>
               <CustomLink className="contentin" to="/Contact">
                 Contact
               </CustomLink>
+              {user && (
+                <CustomLink className="contentin" to="/ordertracking">
+                  Orders
+                </CustomLink>
+              )}
             </div>
           </div>
         </div>
@@ -91,15 +96,18 @@ const Navbar = () => {
               </CustomLink>
             )}
           </div>
-          <li className="shopping-cart">
-            <CustomLink className="headers" to="/ShoppingCart">
-              <img
-                src="/thumbnail/cart.png"
-                alt="Shopping Cart"
-                className="shopping-cart-icon"
-              />
-            </CustomLink>
-          </li>
+
+          {user && (
+            <li className="shopping-cart">
+              <CustomLink className="headers" to="/ShoppingCart">
+                <img
+                  src="/thumbnail/cart.png"
+                  alt="Shopping Cart"
+                  className="shopping-cart-icon"
+                />
+              </CustomLink>
+            </li>
+          )}
         </ul>
       </nav>
     </div>
@@ -109,6 +117,7 @@ const Navbar = () => {
 function CustomLink({ to, children, ...props }) {
   const resolvedPath = useResolvedPath(to);
   const isActive = useMatch({ path: resolvedPath.pathname, end: true });
+
   return (
     <li className={isActive ? " active" : ""}>
       <Link to={to} {...props}>

@@ -56,8 +56,9 @@ body {
 
 .shopping-cart-icon {
   width: 60px; /* Adjust the size as needed */
-  margin-left: 20px; /* Add some spacing between the button and the cart icon */
   cursor: pointer;
+  margin-left: -100px;
+  margin-right: 70px;
   margin-top: 60px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
@@ -67,6 +68,10 @@ body {
 .loginbutton {
   margin-top: 45px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  flex-grow: 0;
+  flex-shrink: 0;
+  flex-basis: 100px;
+  margin-right: 150px;
 }
 .loginbutton:hover {
   transform: scale(1.1);
@@ -88,6 +93,9 @@ input[type="text"] {
   border-radius: 20px;
 }
 .shopping-cart {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
   padding-top: 35px;
   /* Push the cart to the right */
   padding-right: 75px;
@@ -115,6 +123,9 @@ input[type="text"] {
   align-items: center;
   height: 65px; /* Adjust the height as needed */
   padding: 0 20px; /* Adjust the horizontal padding */
+  display: flex;
+  justify-content: space-between; /* Adjust to distribute space */
+  align-items: center;
 }
 .logo {
   margin-top: 20px;

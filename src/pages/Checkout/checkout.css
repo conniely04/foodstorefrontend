@@ -1,0 +1,58 @@
+/*Checkout.css */
+
+.checkout-page-main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 20px;
+  width: 100%;
+  max-width: 75%;
+  margin: 65px auto 0 auto;
+  background: #f8f8f8;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  min-height: calc(100vh - 65px);
+}
+
+/* Ensure all child elements have no excessive margins or paddings that could disrupt the layout */
+.customer-info,
+.payment-info,
+.billing-address,
+.current-cart {
+  margin-bottom: 20px;
+  padding: 0;
+  width: 30%; /* Ensure child elements do not exceed the container's width */
+}
+
+/* Adjust input fields to not overflow their container */
+input {
+  width: calc(100% - 20px); /* Subtract any padding or border widths */
+  margin: 10px 0;
+}
+
+/* Update this as per the actual layout requirements */
+.card-images img {
+  width: 50px; /* Adjust as needed */
+  margin-right: 10px;
+}
+
+.checkout-button-page {
+  background-color: #005823; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+/* Additional styling can be added as needed */
+@media (max-width: 768px) {
+  .checkout-page-main {
+    width: 95%;
+    padding: 10px;
+  }
+}
