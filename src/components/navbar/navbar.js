@@ -8,7 +8,7 @@ import SearchBar from "../Search/search";
 
 //add when u click on somewhere else menu closes
 const Navbar = () => {
-  const { user, logout, cart } = useAuth();
+  const { user, logout, cart, clearCart } = useAuth();
   const totalQuantity =
     (user &&
       cart?.foodList?.reduce((accumulator, currentItem) => {
@@ -134,7 +134,7 @@ const Navbar = () => {
             </div>
           )}
           {user && !user.isAdmin && (
-            <divc className="quantamt">({totalQuantity} Items)</divc>
+            <div className="quantamt">({totalQuantity} Items)</div>
           )}
         </ul>
       </nav>

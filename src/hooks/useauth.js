@@ -80,7 +80,10 @@ export const AuthProvider = ({ children }) => {
         responsedata.user &&
         responsedata.user.isAdmin === true
       ) {
-        setAuthState({ user: responsedata.user, cart: responsedata.cart });
+        setAuthState({
+          user: responsedata.user,
+          cart: { foodList: [], totalPrice: 0 },
+        });
         toast.success("Logged in as Admin!");
         navigate("/ManagerMainPage/dashboard");
       } else {
@@ -95,7 +98,10 @@ export const AuthProvider = ({ children }) => {
   const register = async (data) => {
     try {
       const responsedata = await userService.register(data);
-      setAuthState({ user: responsedata.user, cart: responsedata.cart });
+      setAuthState({
+        user: responsedata.user,
+        cart: { foodList: [], totalPrice: 0 },
+      });
       setUser(responsedata.user);
       setResponseData(responsedata);
 
@@ -114,7 +120,7 @@ export const AuthProvider = ({ children }) => {
   const logout = () => {
     userService.logout();
     setUser(null);
-    setAuthState({ user: null, cart: null });
+    setAuthState({ user: null, cart: { foodList: [], totalPrice: 0 } });
     toast.success("Logout Successful");
   };
 
@@ -145,12 +151,27 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const [orders, setOrders] = useState([]);
+
+  const fetchorders = async () => {
+    try {
+      const fetchedOrders = await userService.getOrders();
+      setOrders(fetchedOrders);
+      console.log(fetchedOrders);
+    } catch (error) {
+      console.error("Failed to fetch orders:", error);
+      toast.error("Error fetching orders");
+      // You may choose to handle the error more specifically
+    }
+  };
+
   return (
     <AuthContext.Provider
       value={{
         cart,
         ...authState,
         createOrder,
+        fetchorders,
         addCartItem,
         removeCartItem,
         user,

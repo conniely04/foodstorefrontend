@@ -37,7 +37,8 @@ export const login = async (email, password) => {
 
 export const logout = () => {
   localStorage.removeItem("user");
-  localStorage.removeItem("cart");
+  localStorage.setItem("cart", JSON.stringify({ foodList: [], totalPrice: 0 })); // Set the cart to an empty state
+  console.log("LOGOUT LOCALSTROAGE:", localStorage);
 };
 
 export const register = async (registerData) => {
@@ -190,5 +191,28 @@ export const clearCart = async () => {
   } catch (error) {
     console.error("Error resetting cart:", error);
     throw error;
+  }
+};
+
+export const getOrders = async () => {
+  const user = getUser(); // Assuming getUser() retrieves the logged-in user's data
+
+  if (!user || !user.token) {
+    console.error("User is not logged in or token is missing");
+    return null; // Or handle this situation appropriately
+  }
+
+  try {
+    const response = await axios.get("http://localhost:5001/api/users/orders", {
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
+    });
+
+    console.log("Orders fetched successfully:", response.data);
+    return response.data; // Return the fetched orders
+  } catch (error) {
+    console.error("Error fetching orders:", error);
+    throw error; // Propagate the error for the caller to handle
   }
 };

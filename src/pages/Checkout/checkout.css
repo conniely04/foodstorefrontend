@@ -1,6 +1,7 @@
 /*Checkout.css */
 
 .checkout-page-main {
+  font-family: "Cabin";
   display: flex;
   flex-direction: column;
   justify-content: center;

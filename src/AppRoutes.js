@@ -38,6 +38,7 @@ export default function AppRoutes() {
       <Navigate to="/login" replace state={{ from: location }} />
     );
   };
+
   return (
     <Routes>
       {/* change this later on back to route to /login */}
@@ -59,7 +60,6 @@ export default function AppRoutes() {
         path="/ordertracking"
         element={ProtectedRouteCart({ children: <Tracking /> })}
       ></Route>
-      <Route path="/ordertracking" element={<Tracking />} />
       <Route
         path="/ManagerMainPage/managerregister"
         element={<ManagerRegister />}

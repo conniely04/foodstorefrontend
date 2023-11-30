@@ -14,6 +14,8 @@ const Checkout = () => {
   const [address, setAddress] = useState("");
   const [payment, setPayment] = useState(""); // Placeholder for your payment ID logic
   const [cvv, setcvv] = useState("");
+  const [email, setemail] = useState("");
+
   const [phone, setphone] = useState("");
   const [city, setcity] = useState("");
   const [country, setcountry] = useState("");
@@ -21,6 +23,15 @@ const Checkout = () => {
   const [month, setmonth] = useState("");
   const [cardname, setcardname] = useState("");
   const finalTotal = parseFloat(localStorage.getItem("finalTotal")).toFixed(2);
+  const [emailError, setEmailError] = useState("");
+  const totalQuantity =
+    (user &&
+      cart?.foodList?.reduce((accumulator, currentItem) => {
+        return accumulator + currentItem.quantity;
+      }, 0)) ||
+    0;
+
+  // Regular expression for basic email validation
 
   //test
 
@@ -28,30 +39,67 @@ const Checkout = () => {
     event.preventDefault();
     // Form validation logic here
     if (!fullName) {
-      toast.info("Please enter full name!");
+      toast.error("Please enter full name!");
       return;
     }
     if (!address.trim() || address.length < 5) {
-      toast.info("Please enter a valid address!)");
+      toast.error("Please enter a valid address!");
       return;
     }
-    const paymentIdNumber = parseInt(payment, 16); // or parseFloat(payment) if it can be a float
-    if (isNaN(paymentIdNumber) || paymentIdNumber <= 0) {
-      toast.info("Please enter a valid card number!");
+    const paymentIdNumber = parseInt(payment); // or parseFloat(payment) if it can be a float
+    if (isNaN(paymentIdNumber) || payment.length !== 16) {
+      console.log(payment.length);
+      toast.error("Please enter a valid card number!");
       return;
     }
-    const cvvnumber = parseInt(cvv, 3); // or parseFloat(payment) if it can be a float
-    if (isNaN(cvvnumber) || cvvnumber <= 0) {
-      toast.info("Please enter a valid cvv!");
+    const cvvnumber = parseInt(cvv); // or parseFloat(payment) if it can be a float
+    if (isNaN(cvvnumber) || cvv.length !== 3) {
+      toast.error("Please enter a valid CVV!");
       return;
     }
-    // const phonenumber = parseInt(phone, 10); // or parseFloat(payment) if it can be a float
-    // if (isNaN(phonenumber) || phonenumber <= 0) {
-    //   toast.info("Please enter a phone number!");
-    //   return;
-    // }
+    const phonenumber = parseInt(phone); // or parseFloat(payment) if it can be a float
+    if (isNaN(phonenumber) || phone.length !== 10) {
+      toast.error("Please enter a valid phone!");
+      return;
+    }
+    if (!city.trim() || city.length < 2) {
+      toast.error("Please enter a valid city!)");
+      return;
+    }
+    if (!country.trim() || country.length < 5) {
+      toast.error("Please enter a valid country!");
+      return;
+    }
+    const zipnumber = parseInt(zip); // or parseFloat(payment) if it can be a float
+    if (isNaN(zipnumber) || zip.length !== 5) {
+      toast.error("Please enter a valid zip code!");
+      return;
+    }
+    if (!cardname.trim() || cardname.length < 2) {
+      toast.error("Please enter a valid Cardholder Name!)");
+      return;
+    }
+    function validateEmail(email) {
+      // Regular expression for basic email validation
+      const regex =
+        /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+      if (regex.test(email)) {
+        // Email is valid
+        return true;
+      } else {
+        // Email is invalid
+        toast.error("Please enter a valid email address!");
+        return false;
+      }
+    }
+    const isValid = validateEmail(email);
+    if (!isValid) {
+      toast.error("Please enter valid email!");
+    }
+
     if (finalTotal <= 0) {
-      toast.info("Nothing to checkout!");
+      toast.error("Nothing to checkout!");
       navigate("/");
       return;
     }
@@ -64,6 +112,7 @@ const Checkout = () => {
         cvv: cvv,
         phone: phone,
         city: city,
+        email: email,
         country: country,
         zip: zip,
         cardname: cardname,
@@ -103,6 +152,7 @@ const Checkout = () => {
               placeholder="Full Name"
               value={fullName}
               onChange={(e) => setFullName(e.target.value)}
+              required
             />
             <input
               type="text"
@@ -110,6 +160,15 @@ const Checkout = () => {
               placeholder="Phone Number"
               value={phone}
               onChange={(e) => setphone(e.target.value)}
+              required
+            />
+            <input
+              type="text"
+              className="checkout-input"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setemail(e.target.value)}
+              required
             />
           </div>
 
@@ -130,6 +189,7 @@ const Checkout = () => {
                 className="checkout-input"
                 value={cardname}
                 onChange={(e) => setcardname(e.target.value)}
+                required
               />
               <input
                 type="text"
@@ -137,13 +197,15 @@ const Checkout = () => {
                 className="checkout-input"
                 value={payment}
                 onChange={(e) => setPayment(e.target.value)}
+                required
               />
-              {/* <input
+              <input
                 type="text"
-                placeholder="Expiry Date"
-                value={cvv}
-                onChange={(e) => setcvv(e.target.value)}
-              /> */}
+                placeholder="Expiry Date "
+                value={month}
+                onChange={(e) => setmonth(e.target.value)}
+                required
+              />
             </div>
           </div>
           <div className="input-container">
@@ -153,6 +215,7 @@ const Checkout = () => {
               className="checkout-input"
               value={cvv}
               onChange={(e) => setcvv(e.target.value)}
+              required
             />
           </div>
         </div>
@@ -165,6 +228,7 @@ const Checkout = () => {
             className="checkout-input"
             value={address}
             onChange={(e) => setAddress(e.target.value)}
+            required
           />
           <input
             type="text"
@@ -172,6 +236,7 @@ const Checkout = () => {
             className="checkout-input"
             value={city}
             onChange={(e) => setcity(e.target.value)}
+            required
           />
           <input
             type="text"
@@ -179,6 +244,7 @@ const Checkout = () => {
             className="checkout-input"
             value={country}
             onChange={(e) => setcountry(e.target.value)}
+            required
           />
           <input
             type="text"
@@ -186,12 +252,16 @@ const Checkout = () => {
             className="checkout-input"
             value={zip}
             onChange={(e) => setzip(e.target.value)}
+            required
           />
         </div>
 
         <div className="current-cart">
           <h3>Current Cart</h3>
+          <span>Total Items: {totalQuantity} Items</span>
+          <br></br>
           <span>Final Total: ${finalTotal}</span>
+
           {/* Display cart items here, if necessary */}
         </div>
         <button type="submit" className="checkout-button-page">
