@@ -120,7 +120,7 @@ const Navbar = () => {
             )}
           </div>
 
-          {user && (
+          {user && !user.isAdmin && (
             <div>
               <li className="shopping-cart">
                 <CustomLink className="headers" to="/ShoppingCart">
@@ -133,7 +133,9 @@ const Navbar = () => {
               </li>
             </div>
           )}
-          {user && <divc className="quantamt">({totalQuantity} Items)</divc>}
+          {user && !user.isAdmin && (
+            <divc className="quantamt">({totalQuantity} Items)</divc>
+          )}
         </ul>
       </nav>
     </div>
