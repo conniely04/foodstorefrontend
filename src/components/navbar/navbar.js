@@ -71,16 +71,32 @@ const Navbar = () => {
                   Login
                 </CustomLink>
               )}
+              {/* Show About and Contact for non-admins */}
+              {!user?.isAdmin && (
+                <>
+                  <CustomLink className="contentin" to="/About">
+                    About
+                  </CustomLink>
+                  <CustomLink className="contentin" to="/Contact">
+                    Contact
+                  </CustomLink>
+                </>
+              )}
 
-              <CustomLink className="contentin" to="/About">
-                About
-              </CustomLink>
-              <CustomLink className="contentin" to="/Contact">
-                Contact
-              </CustomLink>
-              {user && (
+              {/* Show Orders only for customers (assuming customers are not admins) */}
+              {user && !user.isAdmin && (
                 <CustomLink className="contentin" to="/ordertracking">
                   Orders
+                </CustomLink>
+              )}
+
+              {/* Show Dashboard only for managers */}
+              {user?.isManager && (
+                <CustomLink
+                  className="contentin"
+                  to="/ManagerMainPage/dashboard"
+                >
+                  Dashboard
                 </CustomLink>
               )}
             </div>
