@@ -56,7 +56,7 @@ body {
 }
 .quantamt {
   color: white;
-  margin-right: 180px;
+  margin-right: 130px;
 }
 
 .shopping-cart-icon {
@@ -78,7 +78,7 @@ body {
   flex-shrink: 0;
   flex-basis: 0px;
 
-  margin-right: 70px;
+  margin-right: 80px;
 }
 .loginbutton:hover {
   transform: scale(1.1);

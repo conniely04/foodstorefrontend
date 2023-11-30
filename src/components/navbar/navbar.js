@@ -8,13 +8,15 @@ import SearchBar from "../Search/search";
 
 //add when u click on somewhere else menu closes
 const Navbar = () => {
-  const { cart } = useAuth();
-  const totalQuantity = cart.foodList.reduce((accumulator, currentItem) => {
-    return accumulator + currentItem.quantity;
-  }, 0);
+  const { user, logout, cart } = useAuth();
+  const totalQuantity =
+    (user &&
+      cart?.foodList?.reduce((accumulator, currentItem) => {
+        return accumulator + currentItem.quantity;
+      }, 0)) ||
+    0;
 
   const [isOpen, setIsOpen] = useState(false);
-  const { user, logout } = useAuth();
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
