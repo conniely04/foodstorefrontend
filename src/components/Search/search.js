@@ -13,7 +13,7 @@ function SearchBar() {
   };
   const handleSearchSubmit = (e) => {
     e.preventDefault();
-    // Navigate to the search results page or handle the search logic here
+
     navigate(`/search?query=${encodeURIComponent(searchTerm)}`);
   };
 
@@ -30,7 +30,6 @@ function SearchBar() {
         <button className="searchbutton" type="submit">
           <FontAwesomeIcon icon={faSearch} />
         </button>
-        {/*change button to be in search bar and look like searching icon*/}
       </div>
     </form>
   );

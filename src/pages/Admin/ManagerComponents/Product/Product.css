@@ -1,40 +1,37 @@
 .product-heading {
   text-align: center;
-  /* Add any other styling you want for the heading here */
 }
 
 .item-actions {
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Optional: Align buttons to the center */
-    gap: 10px; /* Optional: Add some space between buttons */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
 }
 
 .add-item-button {
-    padding: 5px 10px;
-    background-color: #005823; /* Green color for add button */
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+  padding: 5px 10px;
+  background-color: #005823;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
 .add-new-item-content {
-    display: flex;
-    flex-direction: column;
-  }
+  display: flex;
+  flex-direction: column;
+}
 
 .item-actions button {
-    padding: 5px 10px;
-    background-color: #f44336; 
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+  padding: 5px 10px;
+  background-color: #f44336;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
 .item-actions button:hover {
-    background-color: #ff7961; /* Lighter red on hover */
+  background-color: #ff7961;
 }
-
-/* Other styles */

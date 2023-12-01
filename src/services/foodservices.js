@@ -31,11 +31,11 @@ export const search = async (searchFood) => {
 //for manager side?
 export const addNewItem = async (newItem) => {
   try {
-    const { data } = await axios.post("/api/foods", newItem); // Adjust the URL as needed
+    const { data } = await axios.post("/api/foods", newItem);
     return data;
   } catch (error) {
     console.error("Error adding new item:", error);
-    throw error; // Throwing the error so it can be handled where the function is called
+    throw error;
   }
 };
 
@@ -46,6 +46,6 @@ export const getFoodById = async (foodId) => {
     return data;
   } catch (error) {
     console.log(`Error fetching food by ID ${foodId}:`, error);
-    throw error; // Re-throw the error to handle it in the component
+    throw error;
   }
 };

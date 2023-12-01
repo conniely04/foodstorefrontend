@@ -2,8 +2,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow: hidden; /* Hide overflow */
-  position: relative; /* Needed for absolute positioning of arrows */
+  overflow: hidden;
+  position: relative;
   width: 100%;
   margin-top: 20px;
   flex-direction: column;
@@ -31,7 +31,7 @@
   flex-direction: column;
   align-items: center;
   height: 140px;
-  min-width: 100px; /* Decreased minimum width to make boxes smaller */
+  min-width: 100px;
   justify-content: center;
   cursor: pointer;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -48,8 +48,8 @@
 }
 
 .category-image {
-  max-width: 60px; /* Decreased image size */
-  max-height: 60px; /* Decreased image size */
+  max-width: 60px;
+  max-height: 60px;
   margin: 0 auto;
 }
 
@@ -65,17 +65,17 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 3px; /* Adjusted margin to bring arrows closer with space */
+  margin-top: 3px;
 }
 
 .left-arrow {
   position: flexible;
-  left: 70%; /* Adjusted position to bring the left arrow closer */
+  left: 70%;
 }
 
 .right-arrow {
   position: flexible;
-  right: 70%; /* Adjusted position to bring the right arrow closer */
+  right: 70%;
 }
 
 .scroll-arrow img {
@@ -86,19 +86,17 @@
   width: 80%;
   height: 1px;
   background-color: #005823;
-  margin: 20px auto; /* Center the line horizontally */
-  display: block; /* Ensures the line is a block-level element */
+  margin: 20px auto;
+  display: block;
 }
 
 .ending-line {
   width: 100%;
   height: 1px;
-  margin: 20px auto; /* Center the line horizontally */
-  display: block; /* Ensures the line is a block-level element */
+  margin: 20px auto;
+  display: block;
 }
 
 .category-item-container {
-  /* This class should be on the div wrapping CategoryItem */
-  width: 100%; /* Adjust as per your design */
-  /* Additional styles if needed */
+  width: 100%;
 }

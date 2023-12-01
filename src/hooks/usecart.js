@@ -8,8 +8,7 @@ export const useCart = () => {
 
   const clearCart = async () => {
     try {
-      // Optionally, clear the cart on the backend first
-      const user = getUser(); // Function to get the current user's details, including the token
+      const user = getUser();
       const token = user.token;
 
       await axios.post(
@@ -18,10 +17,8 @@ export const useCart = () => {
         { headers: { Authorization: `Bearer ${token}` } }
       );
 
-      // Clear the cart in the frontend
       setCart(initialCartState);
 
-      // Additionally, clear the cart in local storage if you're using it
       localStorage.setItem("cart", JSON.stringify(initialCartState));
     } catch (error) {
       console.error("Error clearing cart:", error);
@@ -31,15 +28,11 @@ export const useCart = () => {
 
   const updateCartOnServer = async (updatedCart) => {
     try {
-      // Send the updated cart to the server
-      // ...
     } catch (error) {
       console.error("Error updating cart on server:", error);
       throw error;
     }
   };
-
-  // Add more cart manipulation functions as needed
 
   return { cart, setCart, clearCart, updateCartOnServer };
 };

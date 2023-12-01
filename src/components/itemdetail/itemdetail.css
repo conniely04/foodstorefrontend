@@ -6,7 +6,7 @@
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  max-width: 400px; /* Adjust as per your modal size */
+  max-width: 400px;
   font-family: "Cabin";
 }
 
@@ -53,16 +53,16 @@
   transition: background-color 0.3s;
   margin: 5px;
 
-  padding-top: 1px; /* Add a small top padding */
+  padding-top: 1px;
 }
 
 .add-to-cart-button:hover {
-  background-color: #106f10; /* Green color for the add button */
+  background-color: #106f10;
   color: #fff;
 }
 
 .remove-from-cart-button:hover {
-  background-color: #d9534f; /* Red color for the remove button */
+  background-color: #d9534f;
   color: #fff;
 }
 
@@ -96,9 +96,8 @@
   border: none;
   cursor: pointer;
   font-size: 20px;
-  z-index: 1002; /* Ensuring it's above other modal content */
+  z-index: 1002;
 }
 .close-detail-button:hover {
-  color: #d9534f; /* Change color on hover for better UX */
+  color: #d9534f;
 }
-

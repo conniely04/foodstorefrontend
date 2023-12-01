@@ -6,14 +6,12 @@ import axios from "axios";
 export const getUser = () => {
   const userJson = localStorage.getItem("user");
   if (!userJson) {
-    // If userJson is null or undefined, return null or a sensible default
     return null;
   }
   try {
     return JSON.parse(userJson);
   } catch (error) {
     console.error("Error parsing user data from localStorage:", error);
-    // Handle error, maybe remove the corrupt user data from localStorage
     localStorage.removeItem("user");
     return null;
   }
@@ -26,7 +24,7 @@ export const login = async (email, password) => {
   });
   if (data.user) {
     localStorage.setItem("user", JSON.stringify(data.user));
-    console.log("Login response data:", data); // Add this in userService.js inside the login function
+    console.log("Login response data:", data);
   }
   if (data.cart) {
     localStorage.setItem("cart", JSON.stringify(data.cart));
@@ -37,7 +35,7 @@ export const login = async (email, password) => {
 
 export const logout = () => {
   localStorage.removeItem("user");
-  localStorage.setItem("cart", JSON.stringify({ foodList: [], totalPrice: 0 })); // Set the cart to an empty state
+  localStorage.setItem("cart", JSON.stringify({ foodList: [], totalPrice: 0 }));
   console.log("LOGOUT LOCALSTROAGE:", localStorage);
 };
 
@@ -61,7 +59,6 @@ export const isUserLoggedIn = async () => {
     return false;
   }
   try {
-    // Here you would call an endpoint that verifies the token
     const response = await axios.get(
       "http://localhost:5001/api/users/validateToken",
       {
@@ -81,18 +78,18 @@ export const isUserLoggedIn = async () => {
 export const getCart = () => {
   const cart = localStorage.getItem("cart");
 
-  return cart ? JSON.parse(cart) : null; // or initialize an empty cart structure if preferred
+  return cart ? JSON.parse(cart) : null;
 };
 
 export const addToCart = async (itemId, quantity, price) => {
-  const user = getUser(); // Assuming this function correctly retrieves user data
+  const user = getUser();
 
   //working code
   console.log("Item successfully added");
   const response = await axios.post(
     "http://localhost:5001/api/users/addToCart",
     {
-      foodId: itemId, // Assuming the server expects "foodId" instead of "itemId"
+      foodId: itemId,
       quantity,
       price,
     },
@@ -104,17 +101,17 @@ export const addToCart = async (itemId, quantity, price) => {
   );
   // Update local storage with the new cart data
   const updatedCart = response.data;
-  user.cart = updatedCart; // Assuming user.cart contains the cart data
+  user.cart = updatedCart;
   localStorage.setItem("cart", JSON.stringify(updatedCart));
   console.log("UPDATED ADD CART:", updatedCart);
 
-  return updatedCart; // Return the updated cart data
+  return updatedCart;
 };
 
 export const removeFromCart = async (foodId, quantity) => {
   const url = `http://localhost:5001/api/users/removeitem/${foodId}/${quantity}`;
 
-  const user = getUser(); // Assuming this function correctly retrieves user data
+  const user = getUser();
   const response = await axios.delete(
     url,
 
@@ -129,8 +126,7 @@ export const removeFromCart = async (foodId, quantity) => {
   const updatedCart = response.data.cart;
   const dat = response.data.cart.foodList;
   console.log("Food List: ", dat);
-  // Assuming the response includes the updated cart data
-  user.cart = updatedCart; // Assuming user.cart contains the cart data
+  user.cart = updatedCart;
   localStorage.setItem("cart", JSON.stringify(updatedCart));
   console.log("DELETED ITEM CART: ", updatedCart);
 
@@ -152,15 +148,14 @@ export const placeOrder = async (orderData) => {
       }
     );
 
-    // Assuming the backend sends back the created order details
     if (data.order) {
-      console.log("Order response data:", data); // Log or handle the response as needed
+      console.log("Order response data:", data);
     }
     console.log("NEW ORDER DATA:", data);
     return data;
   } catch (error) {
     console.error("Error placing order:", error);
-    throw error; // Propagate the error for the caller to handle
+    throw error;
   }
 };
 
@@ -171,12 +166,10 @@ export const clearCart = async () => {
     const currentCart = JSON.parse(localStorage.getItem("cart"));
 
     if (currentCart && currentCart.foodList) {
-      // Iterate over all items in the foodList and remove each one
       for (const item of currentCart.foodList) {
         await removeFromCart(item.food._id, item.quantity);
       }
 
-      // Update the cart in local storage to reflect an empty cart
       const newCart = {
         ...currentCart,
         foodList: [],
@@ -195,11 +188,11 @@ export const clearCart = async () => {
 };
 
 export const getOrders = async () => {
-  const user = getUser(); // Assuming getUser() retrieves the logged-in user's data
+  const user = getUser();
 
   if (!user || !user.token) {
     console.error("User is not logged in or token is missing");
-    return null; // Or handle this situation appropriately
+    return null;
   }
 
   try {
@@ -209,9 +202,9 @@ export const getOrders = async () => {
       },
     });
 
-    return response.data; // Return the fetched orders
+    return response.data;
   } catch (error) {
     console.error("Error fetching orders:", error);
-    throw error; // Propagate the error for the caller to handle
+    throw error;
   }
 };

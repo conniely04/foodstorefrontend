@@ -44,7 +44,7 @@ input {
 
 .loginbuttons {
   border: none;
-  background-color: rgb(205, 221, 205); /*login button*/
+  background-color: rgb(205, 221, 205);
   padding: 20px;
   border-radius: 10px;
   font-family: "Cabin";
@@ -69,19 +69,19 @@ input {
 }
 .about-us-container,
 .contact-container {
-    width: 100%; /* Full width */
-    max-width: 650px; /* Maximum width */
-    height: auto; /* Height set to auto to contain the content */
-    margin: 0 auto; /* This will center the container if it's not flexed */
-    padding: 20px; /* Padding inside the container */
-    border: 5px solid #005823;
-    border-radius: 10px;
-    text-align: center; /* Center the text inside the container */
-    background-color: white;
-    font-weight: bold;
-    font-size: 20px;
-    color: #005823;
-    white-space: nowrap;
+  width: 100%;
+  max-width: 650px;
+  height: auto;
+  margin: 0 auto;
+  padding: 20px;
+  border: 5px solid #005823;
+  border-radius: 10px;
+  text-align: center;
+  background-color: white;
+  font-weight: bold;
+  font-size: 20px;
+  color: #005823;
+  white-space: nowrap;
 }
 
 .info {

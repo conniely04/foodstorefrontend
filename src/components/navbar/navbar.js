@@ -6,7 +6,6 @@ import { toast } from "react-toastify";
 import { useAuth } from "../../hooks/useauth.js";
 import SearchBar from "../Search/search";
 
-//add when u click on somewhere else menu closes
 const Navbar = () => {
   const { user, logout, cart, clearCart } = useAuth();
   const totalQuantity =
@@ -44,7 +43,6 @@ const Navbar = () => {
         </Link>
         <div className="search-bar">
           <SearchBar />
-          {/*add searchbar component here*/}
         </div>
         <div className={`sidebar ${isOpen ? "open" : ""}`}>
           <div className="sidebar-content">
@@ -71,7 +69,7 @@ const Navbar = () => {
                   Login
                 </CustomLink>
               )}
-              {/* Show About and Contact for non-admins */}
+
               {!user?.isAdmin && (
                 <>
                   <CustomLink className="contentin" to="/About">
@@ -83,14 +81,12 @@ const Navbar = () => {
                 </>
               )}
 
-              {/* Show Orders only for customers (assuming customers are not admins) */}
               {user && !user.isAdmin && (
                 <CustomLink className="contentin" to="/ordertracking">
                   Orders
                 </CustomLink>
               )}
 
-              {/* Show Dashboard only for managers */}
               {user?.isAdmin && (
                 <CustomLink
                   className="contentin"
@@ -106,7 +102,6 @@ const Navbar = () => {
         <ul className="navigation-links">
           <div className="sidebar-toggle" onClick={toggleMenu}>
             <div className="hamicon">&#8801; </div>
-            {/* Unicode hamburger icon */}
           </div>
           <div className="loginbutton">
             {user ? (

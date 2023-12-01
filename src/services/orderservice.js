@@ -19,12 +19,12 @@ export const createOrder = async (order) => {
     );
     return data;
   } catch (error) {
-    throw error; // Or handle the error as you see fit
+    throw error;
   }
 };
 
 export const fetchOrders = async () => {
-  const user = getUser(); // Assume getUser() retrieves the current user and token
+  const user = getUser();
   if (!user || !user.token) {
     throw new Error("User is not authenticated");
   }
@@ -41,8 +41,6 @@ export const fetchOrders = async () => {
     const data = await response.json();
     return data;
   } catch (error) {
-    console.error('Error fetching orders:', error);
-    // Handle errors appropriately in your application
+    console.error("Error fetching orders:", error);
   }
 };
-

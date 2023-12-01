@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../categories/categories.css";
 import CategoryItem from "../categoryitems/categoryitem";
-import { getCategories } from "../../services/categoriesService"; // Import getCategories
+import { getCategories } from "../../services/categoriesService";
 
 function Categories({}) {
   const [categoriesData, setCategoriesData] = useState([]);
@@ -53,7 +53,6 @@ function Categories({}) {
               }`}
               onClick={() => handleCategoryClick(category._id)}
             >
-              {/* Update image path as per your server setup */}
               <img
                 src={`/thumbnail/${category.image}`}
                 alt={category.name}

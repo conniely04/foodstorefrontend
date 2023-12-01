@@ -6,13 +6,13 @@ import { clearCart, getCart } from "../../services/userService";
 import { toast } from "react-toastify";
 
 const Checkout = () => {
-  const { createOrder, removeCartItem } = useAuth(); // Extract the createOrder function from useAuth
+  const { createOrder, removeCartItem } = useAuth();
   const { cart, user } = useAuth();
 
   const navigate = useNavigate();
   const [fullName, setFullName] = useState("");
   const [address, setAddress] = useState("");
-  const [payment, setPayment] = useState(""); // Placeholder for your payment ID logic
+  const [payment, setPayment] = useState("");
   const [cvv, setcvv] = useState("");
   const [email, setemail] = useState("");
 
@@ -31,13 +31,11 @@ const Checkout = () => {
       }, 0)) ||
     0;
 
-  // Regular expression for basic email validation
-
   //test
 
   const handleOrder = async (event) => {
     event.preventDefault();
-    // Form validation logic here
+
     if (!fullName) {
       toast.error("Please enter full name!");
       return;
@@ -46,18 +44,18 @@ const Checkout = () => {
       toast.error("Please enter a valid address!");
       return;
     }
-    const paymentIdNumber = parseInt(payment); // or parseFloat(payment) if it can be a float
+    const paymentIdNumber = parseInt(payment);
     if (isNaN(paymentIdNumber) || payment.length !== 16) {
       console.log(payment.length);
       toast.error("Please enter a valid card number!");
       return;
     }
-    const cvvnumber = parseInt(cvv); // or parseFloat(payment) if it can be a float
+    const cvvnumber = parseInt(cvv);
     if (isNaN(cvvnumber) || cvv.length !== 3) {
       toast.error("Please enter a valid CVV!");
       return;
     }
-    const phonenumber = parseInt(phone); // or parseFloat(payment) if it can be a float
+    const phonenumber = parseInt(phone);
     if (isNaN(phonenumber) || phone.length !== 10) {
       toast.error("Please enter a valid phone!");
       return;
@@ -70,7 +68,7 @@ const Checkout = () => {
       toast.error("Please enter a valid country!");
       return;
     }
-    const zipnumber = parseInt(zip); // or parseFloat(payment) if it can be a float
+    const zipnumber = parseInt(zip);
     if (isNaN(zipnumber) || zip.length !== 5) {
       toast.error("Please enter a valid zip code!");
       return;
@@ -80,7 +78,6 @@ const Checkout = () => {
       return;
     }
     function validateEmail(email) {
-      // Regular expression for basic email validation
       const regex =
         /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
@@ -118,12 +115,10 @@ const Checkout = () => {
         cardname: cardname,
         totalPrice: finalTotal,
         items: cart.foodList.map((item) => ({
-          food: item.food._id, // Assuming item.food contains the food object with an _id field
+          food: item.food._id,
           quantity: item.quantity,
         })),
         user: user.id,
-        // Replace with actual payment ID logic
-        // Add other necessary data, such as totalPrice and items
       };
 
       await createOrder(orderData);
@@ -131,10 +126,8 @@ const Checkout = () => {
 
       navigate("/ordertracking");
       console.log("CLEARED CART:", cart);
-      // Handle the response, e.g., show success message or handle errors
     } catch (error) {
       console.error("Error in creating order:", error);
-      // Handle the error, e.g., show error message to the user
     }
   };
 
@@ -205,7 +198,6 @@ const Checkout = () => {
             />
           </div>
 
-          {/* Wrap the CVV input in its own div */}
           <div className="input-container">
             <input
               type="text"

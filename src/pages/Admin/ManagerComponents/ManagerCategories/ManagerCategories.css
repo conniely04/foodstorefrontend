@@ -1,7 +1,6 @@
-/* Styles for each individual button */
 .category-button {
   padding: 5px 10px;
-  background-color: #f44336; /* Red color for delete button */
+  background-color: #f44336;
   color: white;
   border: none;
   border-radius: 5px;
@@ -9,20 +8,19 @@
 }
 
 .category-button:hover {
-  background-color: #ff7961; /* Lighter red on hover */
+  background-color: #ff7961;
 }
 
-/* Styles for the button container */
 .category-button-container {
   display: flex;
   align-items: center;
-  gap: 1px; /* Adjust as needed for space between buttons */
-  margin-top: auto; /* Push the buttons to the bottom */
+  gap: 1px;
+  margin-top: auto;
 }
 
-.add-category-button{
+.add-category-button {
   padding: 5px 10px;
-  background-color: #005823; /* Green color for add button */
+  background-color: #005823;
   color: white;
   border: none;
   border-radius: 5px;

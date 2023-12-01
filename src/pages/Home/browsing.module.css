@@ -34,8 +34,8 @@
 
 .categorylist {
   display: flex;
-  justify-content: center; /* Center all content horizontally */
-  align-items: center; /* Align vertically */
+  justify-content: center;
+  align-items: center;
   position: relative;
   width: 100%;
 }
@@ -43,6 +43,6 @@
 .ending-line {
   width: 100%;
   height: 1px;
-  margin: 20px auto; /* Center the line horizontally */
-  display: block; /* Ensures the line is a block-level element */
+  margin: 20px auto;
+  display: block;
 }

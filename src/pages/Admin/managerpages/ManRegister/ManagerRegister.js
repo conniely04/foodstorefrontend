@@ -13,7 +13,7 @@ export default function ManagerRegister() {
   const navigate = useNavigate();
   const [params] = useSearchParams();
   const returnurl = params.get("returnurl");
-  const [pinError, setPinError] = useState(""); // State to manage PIN validity
+  const [pinError, setPinError] = useState("");
 
   useEffect(() => {
     if (!user) return;
@@ -35,25 +35,17 @@ export default function ManagerRegister() {
       // Send the registration data including the PIN to the server
       const response = await auth.register(data);
 
-      // Assuming your auth.register function and server respond with the right HTTP status code
-      // and message for a successful registration
       if (response.isAdmin) {
-        // If the server response indicates the user is an admin, navigate to the dashboard
         navigate("/ManagerMainPage/dashboard");
       } else {
-        // If the server response indicates the user is not an admin, handle accordingly
-
         setPinError(
           "Registration successful, but you are not registered as an admin."
         );
       }
     } catch (error) {
-      // Handle errors, e.g., show a message if the registration fails
       if (error.response && error.response.status === 401) {
-        // Specific handling for incorrect PIN
         setPinError("Incorrect PIN. Please try again.");
-      } else {
-        // General error handling
+
         setPinError("An error occurred during registration. Please try again.");
       }
       console.error("Registration error:", error);

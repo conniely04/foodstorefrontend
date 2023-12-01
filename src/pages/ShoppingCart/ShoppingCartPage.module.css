@@ -7,7 +7,7 @@
 }
 
 .cartItems {
-  width: 70%; /* Adjust width as needed */
+  width: 70%;
 }
 
 .cartItem {
@@ -20,7 +20,7 @@
 }
 
 .itemImage {
-  width: 250px; /* Adjust size as needed */
+  width: 250px;
   margin-right: 20px;
 }
 
@@ -33,7 +33,7 @@
   gap: 10px;
 } */
 
-.removebutton1{
+.removebutton1 {
   background-color: #005823;
   color: white;
   border: none;
@@ -49,7 +49,8 @@
   transform: scale(1.1);
 }
 
-.add-to-cart-button, .remove-from-cart-button:hover{
+.add-to-cart-button,
+.remove-from-cart-button:hover {
   font-size: 20px;
   background-color: #ffffff;
   color: #5b7860;
@@ -61,21 +62,21 @@
   transition: background-color 0.3s;
   margin: 5px;
 
-  padding-top: 1px; /* Add a small top padding */
+  padding-top: 1px;
 }
 
 .add-to-cart-button:hover {
-  background-color: #106f10; /* Green color for the add button */
+  background-color: #106f10;
   color: #fff;
 }
 
 .remove-from-cart-button:hover {
-  background-color: #d9534f; /* Red color for the remove button */
+  background-color: #d9534f;
   color: #fff;
 }
 
 .cartSummary {
-  width: 25%; /* Adjust width as needed */
+  width: 25%;
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -86,42 +87,41 @@
   color: #888;
 }
 
-/* Add more styling as needed to match the provided layout */
-.topbar{
+.topbar {
   align-content: center;
   display: flex;
-  justify-content: flex-end; 
+  justify-content: flex-end;
 }
 
-.continueShoppingButton{
-  background-color: #005823; /* Green background */
-  color: white; /* White text */
+.continueShoppingButton {
+  background-color: #005823;
+  color: white;
   border: none;
   padding: 10px 15px;
   cursor: pointer;
   border-radius: 5px;
-  text-decoration: none; /* Removes underline from link */
-  display: inline-block; /* Allows padding and height/width styling */
+  text-decoration: none;
+  display: inline-block;
   margin-top: 10px;
   transition: transform 0.3s ease;
   margin-right: 90%;
 }
 
-
 .checkoutButton {
-  background-color: #005823; /* Green background */
-  color: white; /* White text */
+  background-color: #005823;
+  color: white;
   border: none;
   padding: 10px 15px;
   cursor: pointer;
   border-radius: 5px;
-  text-decoration: none; /* Removes underline from link */
-  display: inline-block; /* Allows padding and height/width styling */
+  text-decoration: none;
+  display: inline-block;
   margin-top: 10px;
   transition: transform 0.3s ease;
 }
 
-.continueShoppingButton:hover, .checkoutButton:hover {
-  background-color: #5b7860; /* Darker green on hover */
-  transform: scale(1.1); /* Slightly increase size on hover */
+.continueShoppingButton:hover,
+.checkoutButton:hover {
+  background-color: #5b7860;
+  transform: scale(1.1);
 }

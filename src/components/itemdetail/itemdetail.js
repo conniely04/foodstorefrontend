@@ -28,17 +28,14 @@ function ItemDetail({
   };
 
   const handleAddToCart = () => {
-    // Call addToCart with the foodId and quantity
     addCartItem(foodId, quantity, price); // Pass the foodId to addToCart
   };
 
   const handleRemoveFromCart = () => {
     console.log("Food id from itemdetail:", foodId);
     if (quantity > 0) {
-      removeCartItem(foodId, quantity); // Adjust your removeCartItem function to handle quantity
-      // Optionally reset quantity or give feedback to the user
+      removeCartItem(foodId, quantity);
     } else {
-      // Handle the case where quantity is zero
       console.log("All items of this are removed");
     }
   };
@@ -56,9 +53,19 @@ function ItemDetail({
         <p className="price"> {price} EACH </p>
         <p className="weight">Weight ~ {weight} Lbs</p>
         <div className="quantity-container">
-          <button  className="remove-from-cart-button" onClick={handleDecreaseQuantity}>-</button>
+          <button
+            className="remove-from-cart-button"
+            onClick={handleDecreaseQuantity}
+          >
+            -
+          </button>
           <span className="quantity">{quantity}</span>
-          <button className="add-to-cart-button" onClick={handleIncreaseQuantity}>+</button>
+          <button
+            className="add-to-cart-button"
+            onClick={handleIncreaseQuantity}
+          >
+            +
+          </button>
         </div>
         <p className="description"> {description}</p>
         {/* <button className="addbutton" onClick={handleRemoveFromCart}>
@@ -73,4 +80,3 @@ function ItemDetail({
 }
 
 export default ItemDetail;
-

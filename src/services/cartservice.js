@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:5001"; // Adjust the URL as per your server configuration
+const BASE_URL = "http://localhost:5001";
 
 export const getCategories = async () => {
   try {

@@ -9,18 +9,17 @@ export const AuthProvider = ({ children }) => {
   const cart = userService.getCart();
   //line 11?
   const [user, setUser] = useState(userService.getUser());
-  const [responseData, setResponseData] = useState(userService.getUser()); // Initialize with default user data
+  const [responseData, setResponseData] = useState(userService.getUser());
 
   const [authState, setAuthState] = useState({
     user: userService.getUser() || {},
-    cart: userService.getCart() || {}, // Assuming you have a method to get the cart from local storage
+    cart: userService.getCart() || {},
   });
 
   const navigate = useNavigate();
 
   useEffect(() => {
     const checkAuthStatus = async () => {
-      // Ideally, you would have a method to validate the current token
       const isLoggedIn = await userService.isUserLoggedIn();
       if (!isLoggedIn && authState.user) {
         toast.info("Session expired. Please log in again.");
@@ -47,7 +46,6 @@ export const AuthProvider = ({ children }) => {
     } catch (error) {
       toast.info("Error adding item!");
       console.error("Error adding to cart:", error);
-      // Handle error (e.g., show a notification to the user)
     }
   };
 
@@ -64,7 +62,6 @@ export const AuthProvider = ({ children }) => {
       toast.info("Removed item from cart!");
     } catch (error) {
       console.error("Error removing item from cart:", error);
-      // Handle error (e.g., show a notification to the user)
     }
   };
 
@@ -137,17 +134,16 @@ export const AuthProvider = ({ children }) => {
       if (!authState.user) {
         throw new Error("No user logged in");
       }
-      // Add the user's ID to the order data
+
       const orderData = {
         ...orderDetails,
-        user: user.id, // Assuming that the user object has an _id field
+        user: user.id,
       };
       console.log("ORDER DATA:", orderData);
       toast.success("Order Succesfully Placed!");
       userService.placeOrder(orderData);
-      // ... rest of your code ...
     } catch (error) {
-      throw error; // Re-throw the error to be handled by the caller
+      throw error;
     }
   };
   //ORDERS
@@ -159,31 +155,27 @@ export const AuthProvider = ({ children }) => {
       console.log("FETCHED ORDERS USERAUTH: ", fetchedOrders);
 
       if (fetchedOrders && fetchedOrders.length > 0) {
-        // Sort orders by createdAt date in descending order
         const sortedOrders = fetchedOrders.sort(
           (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
         );
 
-        // Take the first order as it's the most recent one
         const mostRecent = sortedOrders[0];
 
-        // If needed, adjust the delivery time by adding one hour
         const deliveryTime = new Date(
           new Date(mostRecent.createdAt).getTime() + 60 * 60 * 1000
         );
 
         const mostRecentOrderWithAdjustedTime = {
           ...mostRecent,
-          deliveryTime: deliveryTime.toISOString(), // Adjusted delivery time
+          deliveryTime: deliveryTime.toISOString(),
         };
 
-        setMostRecentOrder(mostRecentOrderWithAdjustedTime); // Update state with the most recent order
+        setMostRecentOrder(mostRecentOrderWithAdjustedTime);
       } else {
-        setMostRecentOrder(null); // If there are no orders, set the state to null
+        setMostRecentOrder(null);
       }
     } catch (error) {
       console.error("Error in userOrders:", error);
-      // Handle error appropriately
     }
   };
 

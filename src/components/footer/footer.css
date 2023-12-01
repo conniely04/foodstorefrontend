@@ -20,7 +20,7 @@
   flex-direction: column;
   align-items: center;
   margin: 0 20px;
-  margin-bottom: 15px; /* Remove vertical margin for spacing between sections and icons */
+  margin-bottom: 15px;
 }
 
 .title {
@@ -43,15 +43,13 @@
 }
 
 .social-icon {
-  width: 30px; /* Adjust this value to scale the size of your image */
-  height: auto; /* This will keep the aspect ratio intact */
-  margin-top: 20px; /* Adjust this value to control space between the title and the icons */
+  width: 30px;
+  height: auto;
+  margin-top: 20px;
   color: #ffffff;
   margin: 0 2px;
 }
 
 .social-icon:hover {
-  transform: scale(
-    1.1
-  ); /* Optional: makes the icon slightly larger when hovering over it */
+  transform: scale(1.1);
 }

@@ -24,26 +24,23 @@ export default function AppRoutes() {
     return user && user.isAdmin ? (
       children
     ) : (
-      // Redirect non-manager users to a different route (e.g., customer login)
       <Navigate to="/managerlogin" replace state={{ from: location }} />
     );
   };
 
   const ProtectedRouteCart = ({ children }) => {
-    const { user } = useAuth(); // Get the user from your auth context or state
-    const location = useLocation(); // Get the current location
+    const { user } = useAuth();
+    const location = useLocation();
 
     return user ? (
       children
     ) : (
-      // Redirect non-manager users to a different route (e.g., customer login)
       <Navigate to="/login" replace state={{ from: location }} />
     );
   };
 
   return (
     <Routes>
-      {/* change this later on back to route to /login */}
       <Route path="/login" element={<LoginPage />} />
       <Route path="/" element={<Browsing />} />
       <Route path="/register" element={<Register />} />
@@ -75,9 +72,10 @@ export default function AppRoutes() {
         path="/ManagerMainPage/product-management"
         element={ProtectedRoute({ children: <ProductManagement /> })}
       />
-     <Route
-        path = "/ManagerMainPage/tracking"
-        element = {ProtectedRoute({children: <OrderTracking />})} />
+      <Route
+        path="/ManagerMainPage/tracking"
+        element={ProtectedRoute({ children: <OrderTracking /> })}
+      />
     </Routes>
   );
 }

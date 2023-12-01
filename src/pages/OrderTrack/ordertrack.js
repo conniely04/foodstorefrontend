@@ -4,7 +4,7 @@ import { useAuth } from "../../hooks/useauth";
 
 import { toast } from "react-toastify";
 function Tracking() {
-  const backgroundImageUrl = "/thumbnail/map.png"; // Make sure this URL points to your actual map image
+  const backgroundImageUrl = "/thumbnail/map.png";
   const [progress, setProgress] = useState(0);
 
   const containerStyle = {
@@ -14,7 +14,7 @@ function Tracking() {
   const { mostRecentOrder, userOrders } = useAuth();
 
   useEffect(() => {
-    userOrders(); // Fetch orders when the component mounts
+    userOrders();
   }, [userOrders]);
 
   const stages = [
@@ -35,7 +35,7 @@ function Tracking() {
   //           {orders.map((order) => (
   //             <li key={order._id}>
   //               {" "}
-  //               {/* Make sure to use the correct identifier property */}
+  //
   //               <h3>Order ID: {order._id}</h3>
   //               <p>Customer Name: {order.customerName}</p>
   //               <p>Address: {order.shippingAddress}</p>
@@ -71,8 +71,6 @@ function Tracking() {
         <h3 className="thank-you-text">Order Details</h3>
         {mostRecentOrder && (
           <div className="order-details">
-            {/* Display the details of the most recent order */}
-
             <p>
               <strong>Order ID:</strong> {mostRecentOrder.id}
             </p>
@@ -92,7 +90,6 @@ function Tracking() {
               <strong>Total Price:</strong> $
               {mostRecentOrder.totalPrice.toFixed(2)}
             </p>
-            {/* Add more details as needed */}
           </div>
         )}
       </div>

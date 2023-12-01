@@ -3,7 +3,6 @@ import "../../ManagerStyling/Dashboard.css";
 import ManagerSidebar from "./ManagerSidebar/ManagerSidebar";
 
 const Dashboard = () => {
-  // Example data for dashboard metrics
   const metrics = {
     totalSales: 120000,
     totalOrders: 350,

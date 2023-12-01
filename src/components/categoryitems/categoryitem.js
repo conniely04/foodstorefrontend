@@ -52,13 +52,12 @@ const CategoryItem = ({ selectedCategory }) => {
     event.stopPropagation();
     console.log("Item to add:", item._id);
     try {
-      const updatedCart =  await addToCartService(item.id, quantity, item.price);// Assuming quantity to remove is always 1
+      const updatedCart = await addToCartService(item.id, quantity, item.price);
       setCart(getUser()?.cart || []);
       toast.success("Item Added to Cart");
     } catch (error) {
       toast.error("Login to add items!");
       console.error("Error adding item from cart:", error);
-      // Optionally, handle the error (e.g., show a notification to the user)
     }
   };
 
@@ -66,13 +65,12 @@ const CategoryItem = ({ selectedCategory }) => {
     event.stopPropagation();
     console.log("Item to remove:", item._id);
     try {
-      const updatedCart = await removeFromCartService(item._id, 1); // Assuming quantity to remove is always 1
+      const updatedCart = await removeFromCartService(item._id, 1);
       setCart(updatedCart || getUser()?.cart || []);
       toast.info("Item Removed");
     } catch (error) {
       toast.error("No Items To Remove");
       console.error("Error removing item from cart:", error);
-      // Optionally, handle the error (e.g., show a notification to the user)
     }
   };
 

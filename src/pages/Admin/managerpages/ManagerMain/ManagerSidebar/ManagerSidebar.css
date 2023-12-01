@@ -10,7 +10,7 @@
   background-color: rgb(14, 74, 33);
   overflow-x: hidden;
   padding-top: 20px;
-  margin-top: 65px; /* Adjust if needed based on your header's height */
+  margin-top: 65px;
 }
 
 .managers-sidebar a {
@@ -20,7 +20,7 @@
   color: white;
   justify-content: space;
   font-size: 20px;
-  color: #fff; /* This is the text color, set to white for contrast */
+  color: #fff;
   display: block;
   margin-top: 0;
   padding-bottom: 18px;

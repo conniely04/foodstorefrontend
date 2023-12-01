@@ -1,90 +1,90 @@
 .order-tracking-container {
-    padding: 20px;
-    border-radius: 10px;
-    margin-left: 250px; /* Same width as the sidebar */
-    max-width: 800px;
-    margin: 0 auto;
-    text-align: center;
-    padding : 65px;
+  padding: 20px;
+  border-radius: 10px;
+  margin-left: 250px;
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 65px;
 }
 
 .tracking-title {
-    text-align: center;
-    color: #333;
+  text-align: center;
+  color: #333;
 }
 
 .orders-list {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .order-card {
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    padding: 15px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .order-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
 }
 
 .order-header h2 {
-    margin: 0;
-    color: #333;
+  margin: 0;
+  color: #333;
 }
 
 .order-date {
-    color: #666;
-    font-size: 0.9rem;
+  color: #666;
+  font-size: 0.9rem;
 }
 
 .order-info {
-    margin-bottom: 15px;
+  margin-bottom: 15px;
 }
 
 .order-status {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 .order-status.pending {
-    color: orange;
+  color: orange;
 }
 
 .order-status.processing {
-    color: dodgerblue;
+  color: dodgerblue;
 }
 
 .order-status.completed {
-    color: green;
+  color: green;
 }
 
 .order-actions {
-    display: flex;
-    gap: 10px;
+  display: flex;
+  gap: 10px;
 }
 
 .action-btn {
-    background-color: #eee;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 15px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    transition: background-color 0.3s;
+  background-color: #eee;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 15px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: background-color 0.3s;
 }
 
 .action-btn:hover {
-    background-color: #ddd;
+  background-color: #ddd;
 }
 
 .action-btn svg {
-    font-size: 1.2rem;
+  font-size: 1.2rem;
 }

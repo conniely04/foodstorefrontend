@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useContext } from "react";
 import classes from "./ShoppingCartPage.module.css";
 import { Link } from "react-router-dom";
-import { useAuth } from "../../hooks/useauth"; // Correct capitalization
+import { useAuth } from "../../hooks/useauth";
 import { toast } from "react-toastify";
 
 function ShoppingCart() {
   const { cart, addCartItem, removeCartItem } = useAuth();
 
-  console.log("CART FROM SHOPPING CART: ", cart); // Retrieve cart data from useAuth
+  console.log("CART FROM SHOPPING CART: ", cart);
 
   const [itemQuantities, setItemQuantities] = useState(
     cart.foodList.reduce((acc, item) => {
@@ -29,7 +29,6 @@ function ShoppingCart() {
       return updatedCart;
     } catch (error) {
       console.error("Could not increase item quantity:", error);
-      // Handle the error, e.g., show an error message to the user
     }
   };
 
@@ -63,7 +62,6 @@ function ShoppingCart() {
       0
     ) || 0;
 
-  // Calculate the tax (assuming subtotal is already in dollars)
   const taxRate = 0.098;
   const tax = parseFloat((subtotal * taxRate).toFixed(2));
 
@@ -77,7 +75,7 @@ function ShoppingCart() {
     cart?.foodList?.reduce((total, item) => total + item.quantity, 0) || 0;
 
   // Calculate weight fee
-  const weightthreshold = 20; // This should be in weight units (e.g., pounds), not in dollars
+  const weightthreshold = 20;
   const weightfee = 5;
   const weightfeeapplicable = totalWeight >= weightthreshold;
   const totalFee = weightfeeapplicable ? weightfee : 0;
@@ -114,13 +112,30 @@ function ShoppingCart() {
                 <p>Price: ${item.food.price}</p>
                 <p>Quantity: {item.quantity}</p>
                 <div className={classes.itemActions}>
-                  <button className="add-to-cart-button" onClick={() => handleIncreaseQuantity(item)}>+</button>
-                  <button className="remove-from-cart-button" onClick={() => handleDecreaseQuantity(item)}>-</button>
-                  <button className={classes.removebutton1}  onClick={() => handleRemoveFromCart(item.food._id.toString(), item.quantity)}>
+                  <button
+                    className="add-to-cart-button"
+                    onClick={() => handleIncreaseQuantity(item)}
+                  >
+                    +
+                  </button>
+                  <button
+                    className="remove-from-cart-button"
+                    onClick={() => handleDecreaseQuantity(item)}
+                  >
+                    -
+                  </button>
+                  <button
+                    className={classes.removebutton1}
+                    onClick={() =>
+                      handleRemoveFromCart(
+                        item.food._id.toString(),
+                        item.quantity
+                      )
+                    }
+                  >
                     Remove
                   </button>
                 </div>
-
               </div>
             </div>
           ))

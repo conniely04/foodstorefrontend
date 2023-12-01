@@ -21,7 +21,7 @@ export default function HomePage() {
         />
       </div>
       <div className={styles.categorylist}>
-        <Categories /> {/* This component should fetch and display categories */}
+        <Categories />
       </div>
       <div className="ending-line"></div>
       <Footer />

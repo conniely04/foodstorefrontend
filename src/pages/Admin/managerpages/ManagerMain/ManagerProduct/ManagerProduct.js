@@ -1,6 +1,6 @@
-import React from 'react';
-import ManagerCategories from '../../../ManagerComponents/ManagerCategories/ManagerCategories';
-import ManagerSidebar from "../ManagerSidebar/ManagerSidebar"; // Adjust this path if necessary
+import React from "react";
+import ManagerCategories from "../../../ManagerComponents/ManagerCategories/ManagerCategories";
+import ManagerSidebar from "../ManagerSidebar/ManagerSidebar";
 import "../ManagerProduct/ManagerProduct.css";
 
 function ProductManagement() {

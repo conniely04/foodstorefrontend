@@ -18,14 +18,14 @@ body {
 .logo {
   width: 48px;
   height: 48px;
-  margin-right: 8px; /* Reduced from 20px */
-  margin-left: 5px; /* Reduced from 20px */
+  margin-right: 8px;
+  margin-left: 5px;
   padding-top: 35%;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .store-name {
-  padding-left: 3px; /* Reduced from 20px */
+  padding-left: 3px;
   font-size: 24px;
   text-decoration: none;
   color: #fff;
@@ -60,7 +60,7 @@ body {
 }
 
 .shopping-cart-icon {
-  width: 60px; /* Adjust the size as needed */
+  width: 60px;
   cursor: pointer;
   margin-right: -120px;
   margin-left: 25px;
@@ -104,18 +104,18 @@ input[type="text"] {
   align-items: center;
   margin-left: auto;
   padding-top: 35px;
-  /* Push the cart to the right */
+
   padding-right: 75px;
 }
 .navigation-links {
   display: flex;
   align-items: center;
   padding-right: 5px;
-  gap: 10px; /* Add space between items */
+  gap: 10px;
 }
 .navigation-links li {
-  margin-right: 5px; /* Adjust the spacing between links */
-  font-size: 16px; /* Decrease font size if necessary */
+  margin-right: 5px;
+  font-size: 16px;
 }
 .navbar {
   z-index: 2;
@@ -128,10 +128,10 @@ input[type="text"] {
   display: flex;
   position: fixed;
   align-items: center;
-  height: 65px; /* Adjust the height as needed */
-  padding: 0 20px; /* Adjust the horizontal padding */
+  height: 65px;
+  padding: 0 20px;
   display: flex;
-  justify-content: space-between; /* Adjust to distribute space */
+  justify-content: space-between;
   align-items: center;
 }
 .logo {
@@ -145,7 +145,7 @@ ul {
   padding-right: 30px;
   list-style: none;
   display: flex;
-  gap: 20px; /* Adjust gap for space between menu items */
+  gap: 20px;
   text-decoration: none;
   justify-content: center;
 }
@@ -180,8 +180,6 @@ li {
 .sidebar.open {
   display: flex;
   width: 270px;
-
-  /* Adjust the width to your desired sidebar width */
 }
 
 .sidebar-content {
@@ -243,9 +241,9 @@ li {
   justify-content: left;
 }
 .wholenavbar {
-  position: fixed; /* or absolute */
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 100; /* Higher than other content */
+  z-index: 100;
 }
