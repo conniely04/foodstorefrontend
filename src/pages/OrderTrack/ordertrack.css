@@ -40,24 +40,27 @@
 }
 
 .stage:not(:last-child)::after {
-  content: '';
+  content: "";
   position: absolute;
   left: 100%; /* Position the line after the circle */
   top: 10px; /* Adjust this value to align with the center of the circle */
-  width: calc(100% - 40px); /* Assuming your circles are 20px wide, this will draw the line right to the next circle's edge */
+  width: calc(
+    100% - 40px
+  ); /* Assuming your circles are 20px wide, this will draw the line right to the next circle's edge */
   height: 2px; /* Thickness of the line */
   background: #044927; /* Color of the line */
   z-index: -1; /* Ensure the line is behind the circles */
 }
 
-.order-line{
+.order-line {
   width: 80%;
   height: 1px;
   background-color: #005823;
   margin: 20px auto; /* Center the line horizontally */
-
 }
-
+.order-details-container {
+  color: #005823;
+}
 .circle {
   width: 30px;
   height: 30px;

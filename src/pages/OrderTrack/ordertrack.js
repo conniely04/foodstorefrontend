@@ -6,26 +6,14 @@ import { toast } from "react-toastify";
 function Tracking() {
   const backgroundImageUrl = "/thumbnail/map.png"; // Make sure this URL points to your actual map image
   const [progress, setProgress] = useState(0);
-  const { orders, loading, error } = useAuth();
-
-  if (loading) {
-    toast.error("Loading Orders");
-  }
-  if (error) {
-    toast.error("ERRORRRR LOL");
-  }
-  useEffect(() => {
-    if (loading) {
-      toast.info("Loading Orders");
-    }
-    if (error) {
-      toast.error(`Error: ${error.message}`);
-    }
-  }, [loading, error]); // Adding dependencies to useEffect
-
   const containerStyle = {
     backgroundImage: `url(${backgroundImageUrl})`,
   };
+  const { orders, userOrders } = useAuth();
+
+  useEffect(() => {
+    userOrders(); // Fetch orders when the component mounts
+  }, [userOrders]);
 
   const stages = [
     "Order Accepted",
@@ -34,6 +22,28 @@ function Tracking() {
     "Delivered",
   ];
 
+  // <div className="order-details-container">
+  //       {loading && <p>Loading orders...</p>}
+  //       {error && <p>Error fetching orders: {error.message}</p>}
+  //       {!loading && !error && orders.length === 0 && (
+  //         <p>No orders to display.</p>
+  //       )}
+  //       {!loading && !error && orders.length > 0 && (
+  //         <ul>
+  //           {orders.map((order) => (
+  //             <li key={order._id}>
+  //               {" "}
+  //               {/* Make sure to use the correct identifier property */}
+  //               <h3>Order ID: {order._id}</h3>
+  //               <p>Customer Name: {order.customerName}</p>
+  //               <p>Address: {order.shippingAddress}</p>
+  //               <p>Total Price: ${order.totalAmount}</p>
+  //               {/* Add more order details as needed */}
+  //             </li>
+  //           ))}
+  //         </ul>
+  //       )}
+  //     </div>
   return (
     <div className="background-container" style={containerStyle}>
       <h1 className="thank-you-text">Thank You!</h1>
@@ -57,22 +67,6 @@ function Tracking() {
       </div>{" "}
       <div>
         <h3 className="thank-you-text">Order Details</h3>
-        <div>
-          {orders.length > 0 ? (
-            <ul>
-              {orders.map((order) => (
-                <li key={order.id}>
-                  <h3>Order ID: {order.id}</h3>
-                  <p>Customer Name: {order.name}</p>
-                  <p>Address: {order.address}</p>
-                  <p>Total Price: ${order.totalPrice.toFixed(2)}</p>
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <p>No orders to display.</p>
-          )}
-        </div>
       </div>
     </div>
   );

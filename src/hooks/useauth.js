@@ -151,31 +151,16 @@ export const AuthProvider = ({ children }) => {
     }
   };
   //ORDERS
-
-  const useOrders = () => {
-    const [orders, setOrders] = useState([]);
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(null);
-
-    useEffect(() => {
-      setLoading(true);
-      const fetchOrders = async () => {
-        try {
-          const fetchedOrders = await userService.getOrders();
-          setOrders(fetchedOrders);
-          setLoading(false);
-        } catch (error) {
-          console.error("Failed to fetch orders:", error);
-          setError(error);
-          toast.error("Error fetching orders");
-          setLoading(false);
-        }
-      };
-
-      fetchOrders();
-    }, []);
-
-    return { orders, loading, error };
+  const [orders, setOrders] = useState(null);
+  const userOrders = async () => {
+    try {
+      const fetchedOrders = await userService.getOrders();
+      console.log("FETCHED ORDERS USERAUTH: ", fetchedOrders);
+      setOrders(fetchedOrders); // Update orders in the state
+    } catch (error) {
+      console.error("Error in userOrders:", error);
+      // Handle error appropriately
+    }
   };
 
   return (
@@ -184,7 +169,7 @@ export const AuthProvider = ({ children }) => {
         cart,
         ...authState,
         createOrder,
-        useOrders,
+        userOrders,
         addCartItem,
         removeCartItem,
         user,

@@ -209,7 +209,6 @@ export const getOrders = async () => {
       },
     });
 
-    console.log("USERSERVICE ORDERS:", response.data);
     return response.data; // Return the fetched orders
   } catch (error) {
     console.error("Error fetching orders:", error);
