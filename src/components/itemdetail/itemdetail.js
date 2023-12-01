@@ -3,7 +3,6 @@ import "../itemdetail/itemdetail.css";
 import { useAuth } from "../../hooks/useauth";
 import "../../pages/ShoppingCart/ShoppingCart";
 import "../categoryitems/categoryitem";
-import { toast } from "react-toastify";
 
 function ItemDetail({
   name,
@@ -29,24 +28,18 @@ function ItemDetail({
   };
 
   const handleAddToCart = () => {
-    if (quantity === 0) {
-      toast.error("No Item Added");
-      return;
-    }
-
     // Call addToCart with the foodId and quantity
     addCartItem(foodId, quantity, price); // Pass the foodId to addToCart
-    toast.success("Item Added to Cart!");
   };
 
   const handleRemoveFromCart = () => {
+    console.log("Food id from itemdetail:", foodId);
     if (quantity > 0) {
       removeCartItem(foodId, quantity); // Adjust your removeCartItem function to handle quantity
       // Optionally reset quantity or give feedback to the user
     } else {
       // Handle the case where quantity is zero
       console.log("All items of this are removed");
-      toast.error("No Items to Remove");
     }
   };
 
@@ -63,14 +56,14 @@ function ItemDetail({
         <p className="price"> {price} EACH </p>
         <p className="weight">Weight ~ {weight} Lbs</p>
         <div className="quantity-container">
-          <button onClick={handleDecreaseQuantity}>-</button>
+          <button  className="remove-from-cart-button" onClick={handleDecreaseQuantity}>-</button>
           <span className="quantity">{quantity}</span>
-          <button onClick={handleIncreaseQuantity}>+</button>
+          <button className="add-to-cart-button" onClick={handleIncreaseQuantity}>+</button>
         </div>
         <p className="description"> {description}</p>
-        <button className="addbutton" onClick={handleRemoveFromCart}>
+        {/* <button className="addbutton" onClick={handleRemoveFromCart}>
           Remove
-        </button>
+        </button> */}
         <button className="addbutton" onClick={handleAddToCart}>
           Add to Cart
         </button>
@@ -80,3 +73,4 @@ function ItemDetail({
 }
 
 export default ItemDetail;
+

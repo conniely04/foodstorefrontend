@@ -100,39 +100,27 @@ function ShoppingCart() {
         <Link to="/" className={classes.continueShoppingButton}>
           Continue Shopping
         </Link>
-        <div className={classes.cartInfo}>
-          <span className={classes.itemCount}>Items: {totalItems}</span>
-          <Link to="/checkout" className={classes.checkoutButton}>
-            Checkout
-          </Link>
-        </div>
         {cart?.foodList && cart.foodList.length > 0 ? (
           cart.foodList.map((item, index) => (
             <div key={index} className={classes.cartItem}>
               <img
                 loading="lazy"
                 src={`/food/${item.food.image}`}
-                alt={item.name}
+                alt={item.food.name}
                 className={classes.itemImage}
               />
               <div className={classes.itemDetails}>
                 <h3>{item.food.name}</h3>
                 <p>Price: ${item.food.price}</p>
                 <p>Quantity: {item.quantity}</p>
-              </div>
-              <div className={classes.itemActions}>
-                <button onClick={() => handleIncreaseQuantity(item)}>+</button>
-                <button onClick={() => handleDecreaseQuantity(item)}>-</button>
-                <button
-                  onClick={() =>
-                    handleRemoveFromCart(
-                      item.food._id.toString(),
-                      item.quantity
-                    )
-                  }
-                >
-                  Remove
-                </button>
+                <div className={classes.itemActions}>
+                  <button className="add-to-cart-button" onClick={() => handleIncreaseQuantity(item)}>+</button>
+                  <button className="remove-from-cart-button" onClick={() => handleDecreaseQuantity(item)}>-</button>
+                  <button className={classes.removebutton1}  onClick={() => handleRemoveFromCart(item.food._id.toString(), item.quantity)}>
+                    Remove
+                  </button>
+                </div>
+
               </div>
             </div>
           ))

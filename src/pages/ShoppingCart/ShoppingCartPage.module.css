@@ -28,20 +28,50 @@
   flex-grow: 1;
 }
 
-.itemActions {
+/* .itemActions {
   display: flex;
   gap: 10px;
-}
+} */
 
-.itemActions button {
-  padding: 10px;
-  background-color: #f0f0f0; /* Adjust colors as needed */
-  border: 1px solid #ccc;
+.removebutton1{
+  background-color: #005823;
+  color: white;
+  border: none;
+  padding: 10px 20px;
   cursor: pointer;
+  border-radius: 5px;
+  margin-top: 10px;
+  transition: transform 0.3s ease;
 }
 
-.itemActions button:hover {
-  background-color: #e0e0e0;
+.removebutton1:hover {
+  background-color: #5b7860;
+  transform: scale(1.1);
+}
+
+.add-to-cart-button, .remove-from-cart-button:hover{
+  font-size: 20px;
+  background-color: #ffffff;
+  color: #5b7860;
+  border: 2px solid #5b7860;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin: 5px;
+
+  padding-top: 1px; /* Add a small top padding */
+}
+
+.add-to-cart-button:hover {
+  background-color: #106f10; /* Green color for the add button */
+  color: #fff;
+}
+
+.remove-from-cart-button:hover {
+  background-color: #d9534f; /* Red color for the remove button */
+  color: #fff;
 }
 
 .cartSummary {
@@ -57,3 +87,41 @@
 }
 
 /* Add more styling as needed to match the provided layout */
+.topbar{
+  align-content: center;
+  display: flex;
+  justify-content: flex-end; 
+}
+
+.continueShoppingButton{
+  background-color: #005823; /* Green background */
+  color: white; /* White text */
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  border-radius: 5px;
+  text-decoration: none; /* Removes underline from link */
+  display: inline-block; /* Allows padding and height/width styling */
+  margin-top: 10px;
+  transition: transform 0.3s ease;
+  margin-right: 90%;
+}
+
+
+.checkoutButton {
+  background-color: #005823; /* Green background */
+  color: white; /* White text */
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  border-radius: 5px;
+  text-decoration: none; /* Removes underline from link */
+  display: inline-block; /* Allows padding and height/width styling */
+  margin-top: 10px;
+  transition: transform 0.3s ease;
+}
+
+.continueShoppingButton:hover, .checkoutButton:hover {
+  background-color: #5b7860; /* Darker green on hover */
+  transform: scale(1.1); /* Slightly increase size on hover */
+}
