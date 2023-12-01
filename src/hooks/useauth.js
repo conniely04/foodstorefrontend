@@ -152,11 +152,35 @@ export const AuthProvider = ({ children }) => {
   };
   //ORDERS
   const [orders, setOrders] = useState(null);
+  const [mostRecentOrder, setMostRecentOrder] = useState(null);
   const userOrders = async () => {
     try {
       const fetchedOrders = await userService.getOrders();
       console.log("FETCHED ORDERS USERAUTH: ", fetchedOrders);
-      setOrders(fetchedOrders); // Update orders in the state
+
+      if (fetchedOrders && fetchedOrders.length > 0) {
+        // Sort orders by createdAt date in descending order
+        const sortedOrders = fetchedOrders.sort(
+          (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+        );
+
+        // Take the first order as it's the most recent one
+        const mostRecent = sortedOrders[0];
+
+        // If needed, adjust the delivery time by adding one hour
+        const deliveryTime = new Date(
+          new Date(mostRecent.createdAt).getTime() + 60 * 60 * 1000
+        );
+
+        const mostRecentOrderWithAdjustedTime = {
+          ...mostRecent,
+          deliveryTime: deliveryTime.toISOString(), // Adjusted delivery time
+        };
+
+        setMostRecentOrder(mostRecentOrderWithAdjustedTime); // Update state with the most recent order
+      } else {
+        setMostRecentOrder(null); // If there are no orders, set the state to null
+      }
     } catch (error) {
       console.error("Error in userOrders:", error);
       // Handle error appropriately
@@ -170,6 +194,7 @@ export const AuthProvider = ({ children }) => {
         ...authState,
         createOrder,
         userOrders,
+        mostRecentOrder,
         addCartItem,
         removeCartItem,
         user,

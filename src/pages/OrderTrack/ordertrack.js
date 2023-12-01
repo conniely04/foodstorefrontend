@@ -6,10 +6,12 @@ import { toast } from "react-toastify";
 function Tracking() {
   const backgroundImageUrl = "/thumbnail/map.png"; // Make sure this URL points to your actual map image
   const [progress, setProgress] = useState(0);
+
   const containerStyle = {
     backgroundImage: `url(${backgroundImageUrl})`,
   };
-  const { orders, userOrders } = useAuth();
+
+  const { mostRecentOrder, userOrders } = useAuth();
 
   useEffect(() => {
     userOrders(); // Fetch orders when the component mounts
@@ -67,6 +69,32 @@ function Tracking() {
       </div>{" "}
       <div>
         <h3 className="thank-you-text">Order Details</h3>
+        {mostRecentOrder && (
+          <div className="order-details">
+            {/* Display the details of the most recent order */}
+
+            <p>
+              <strong>Order ID:</strong> {mostRecentOrder.id}
+            </p>
+            <p>
+              <strong>Name:</strong> {mostRecentOrder.name}
+            </p>
+            <p>
+              <strong>Address:</strong> {mostRecentOrder.address}
+            </p>
+            <p>
+              <strong>Delivery Time:</strong>{" "}
+              {new Date(
+                new Date(mostRecentOrder.createdAt).getTime() + 60 * 60 * 1000
+              ).toLocaleString()}
+            </p>
+            <p>
+              <strong>Total Price:</strong> $
+              {mostRecentOrder.totalPrice.toFixed(2)}
+            </p>
+            {/* Add more details as needed */}
+          </div>
+        )}
       </div>
     </div>
   );

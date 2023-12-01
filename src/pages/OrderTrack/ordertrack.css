@@ -51,7 +51,9 @@
   background: #044927; /* Color of the line */
   z-index: -1; /* Ensure the line is behind the circles */
 }
-
+.order-details {
+  color: #005823;
+}
 .order-line {
   width: 80%;
   height: 1px;
