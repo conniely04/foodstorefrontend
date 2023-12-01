@@ -3,7 +3,7 @@ import "../OrderTrack/ordertrack.css";
 import { useAuth } from "../../hooks/useauth";
 
 function Tracking() {
-  const backgroundImageUrl = "/images/map.png";
+  const backgroundImageUrl = "/thumbnail/map.png"; // Make sure this URL points to your actual map image
   const [progress, setProgress] = useState(0);
   const { orders, fetchorders } = useAuth();
 
@@ -13,50 +13,41 @@ function Tracking() {
 
   const containerStyle = {
     backgroundImage: `url(${backgroundImageUrl})`,
+    // Add additional styles as needed
   };
 
   const stages = [
     "Order Accepted",
     "Preparing Order",
-    "Order Shipped",
     "On the Way",
     "Delivered",
   ];
 
   return (
     <div className="background-container" style={containerStyle}>
-      <div>
-        <h1 className="thank-you-text">Thank you</h1>
-      </div>
-      <div>
-        <h1>Your Orders</h1>
-        {orders.map((order) => (
-          <div key={order._id}>
-            {/* Display order details */}
-            <p>Order ID: {order._id}</p>
-          </div>
-        ))}
-      </div>
-      {/* <div className="delivery-progress">
+      <h1 className="thank-you-text">Thank You!</h1>
+      <div className="delivery-progress">
         {stages.map((stage, index) => (
           <div
             key={index}
-            className={`stage ${index === progress ? "completed" : ""}`}
+            className={`stage ${index <= progress ? "completed" : ""}`}
             onClick={() => setProgress(index)}
           >
-            {index < progress ? (
-              <span>✔</span>
-            ) : (
-              <input type="checkbox" checked={index === progress} readOnly />
-            )}
+            <div
+              className={`circle ${
+                index <= progress ? "circle-completed" : ""
+              }`}
+            >
+              {index < progress ? <span className="checkmark">✔</span> : null}
+            </div>
             <p>{stage}</p>
-
-            <button>Show Orders</button>
-            
           </div>
-          
         ))}
-      </div> */}
+      </div>{" "}
+      <div>
+        <h3 className="thank-you-text">Order Details</h3>
+        <span></span>
+      </div>
     </div>
   );
 }

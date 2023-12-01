@@ -42,10 +42,28 @@
 }
 
 .quantity-container button {
-  background-color: #f0f0f0;
-  border: 1px solid #ddd;
-  padding: 5px 10px;
+  font-size: 20px;
+  background-color: #ffffff;
+  color: #5b7860;
+  border: 2px solid #5b7860;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
   cursor: pointer;
+  transition: background-color 0.3s;
+  margin: 5px;
+
+  padding-top: 1px; /* Add a small top padding */
+}
+
+.add-to-cart-button:hover {
+  background-color: #106f10; /* Green color for the add button */
+  color: #fff;
+}
+
+.remove-from-cart-button:hover {
+  background-color: #d9534f; /* Red color for the remove button */
+  color: #fff;
 }
 
 .quantity {
@@ -54,7 +72,7 @@
 }
 
 .addbutton {
-  background-color: #4caf50;
+  background-color: #005823;
   color: white;
   border: none;
   padding: 10px 20px;
@@ -65,7 +83,7 @@
 }
 
 .addbutton:hover {
-  background-color: #45a049;
+  background-color: #5b7860;
   transform: scale(1.1);
 }
 

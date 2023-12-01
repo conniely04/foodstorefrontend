@@ -141,10 +141,10 @@ const Checkout = () => {
   return (
     <div className="checkout-page-main">
       <form onSubmit={handleOrder} className="checkout-form">
-        <h2>Checkout</h2>
+        <h2 className="checkout-title">Checkout</h2>
 
-        <div className="customer-info">
-          <h3>Customer Information</h3>
+        <div className="section customer-info">
+          <h3 className="section-title">Customer Information</h3>
           <div className="input-container">
             <input
               type="text"
@@ -154,6 +154,7 @@ const Checkout = () => {
               onChange={(e) => setFullName(e.target.value)}
               required
             />
+
             <input
               type="text"
               className="checkout-input"
@@ -171,43 +172,40 @@ const Checkout = () => {
               required
             />
           </div>
+        </div>
 
-          <div className="payment-info">
-            <h3>Payment Information</h3>
-            <div className="input-container">
-              <div className="card-images">
-                <img src="./socialmedia/visa.png" alt="Visa" />
-                <img src="./socialmedia/mastercard.png" alt="MasterCard" />
-                <img
-                  src="./socialmedia/american-express.png"
-                  alt="American Express"
-                />
-              </div>
-              <input
-                type="text"
-                placeholder="Cardholder Name"
-                className="checkout-input"
-                value={cardname}
-                onChange={(e) => setcardname(e.target.value)}
-                required
-              />
-              <input
-                type="text"
-                placeholder="Card Number"
-                className="checkout-input"
-                value={payment}
-                onChange={(e) => setPayment(e.target.value)}
-                required
-              />
-              <input
-                type="text"
-                placeholder="Expiry Date "
-                value={month}
-                onChange={(e) => setmonth(e.target.value)}
-                required
-              />
-            </div>
+        <div className="section payment-info">
+          <h3 className="section-title">Payment Information</h3>
+          <div className="card-images">
+            <img src="./socialmedia/visa.png" alt="Visa" />
+            <img src="./socialmedia/mastercard.png" alt="MasterCard" />
+            <img
+              src="./socialmedia/american-express.png"
+              alt="American Express"
+            />
           </div>
+
+          <div className="input-container">
+            <input
+              type="text"
+              placeholder="Cardholder Name"
+              className="checkout-input"
+              value={cardname}
+              onChange={(e) => setcardname(e.target.value)}
+              required
+            />
+
+            <input
+              type="text"
+              placeholder="Card Number"
+              className="checkout-input"
+              value={payment}
+              onChange={(e) => setPayment(e.target.value)}
+              required
+            />
+          </div>
+
+          {/* Wrap the CVV input in its own div */}
           <div className="input-container">
             <input
               type="text"
@@ -220,51 +218,53 @@ const Checkout = () => {
           </div>
         </div>
 
-        <div className="current-cart">
-          <h3>Billing Address</h3>
-          <input
-            type="text"
-            placeholder="Address"
-            className="checkout-input"
-            value={address}
-            onChange={(e) => setAddress(e.target.value)}
-            required
-          />
-          <input
-            type="text"
-            placeholder="City"
-            className="checkout-input"
-            value={city}
-            onChange={(e) => setcity(e.target.value)}
-            required
-          />
-          <input
-            type="text"
-            placeholder="Country"
-            className="checkout-input"
-            value={country}
-            onChange={(e) => setcountry(e.target.value)}
-            required
-          />
-          <input
-            type="text"
-            placeholder="Zip Code"
-            className="checkout-input"
-            value={zip}
-            onChange={(e) => setzip(e.target.value)}
-            required
-          />
+        <div className="section billing-address">
+          <h3 className="section-title">Billing Address</h3>
+          <div className="input-container">
+            <input
+              type="text"
+              placeholder="Address"
+              className="checkout-input"
+              value={address}
+              onChange={(e) => setAddress(e.target.value)}
+            />
+
+            <input
+              type="text"
+              placeholder="City"
+              className="checkout-input"
+              value={city}
+              onChange={(e) => setcity(e.target.value)}
+            />
+
+            <input
+              type="text"
+              placeholder="Country"
+              className="checkout-input"
+              value={country}
+              onChange={(e) => setcountry(e.target.value)}
+            />
+          </div>
+          <div className="input-container">
+            <input
+              type="text"
+              placeholder="Zip Code"
+              className="checkout-input"
+              value={zip}
+              onChange={(e) => setzip(e.target.value)}
+              required
+            />
+          </div>
         </div>
 
-        <div className="current-cart">
-          <h3>Current Cart</h3>
-          <span>Total Items: {totalQuantity} Items</span>
-          <br></br>
-          <span>Final Total: ${finalTotal}</span>
-
-          {/* Display cart items here, if necessary */}
+        <div className="section current-cart">
+          <h3 className="section-title">Current Cart</h3>
+          <div className="cart-total-container">
+            <span>Final Total: ${finalTotal}</span>
+          </div>
         </div>
-        <button type="submit" className="checkout-button-page">
+
+        <button type="submit" className="checkout1-button">
           Complete Checkout and Pay
         </button>
       </form>
