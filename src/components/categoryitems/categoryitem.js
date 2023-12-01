@@ -50,10 +50,16 @@ const CategoryItem = ({ selectedCategory }) => {
 
   const handleAddToCart = async (item, event) => {
     event.stopPropagation();
-
-    await addToCartService(item.id, quantity, item.price);
-    setCart(getUser()?.cart || []);
-    toast.success("Item Added to Cart");
+    console.log("Item to add:", item._id);
+    try {
+      const updatedCart =  await addToCartService(item.id, quantity, item.price);// Assuming quantity to remove is always 1
+      setCart(getUser()?.cart || []);
+      toast.success("Item Added to Cart");
+    } catch (error) {
+      toast.error("Login to add items!");
+      console.error("Error adding item from cart:", error);
+      // Optionally, handle the error (e.g., show a notification to the user)
+    }
   };
 
   const handleRemoveFromCart = async (item, event) => {
