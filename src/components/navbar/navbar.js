@@ -91,7 +91,7 @@ const Navbar = () => {
               )}
 
               {/* Show Dashboard only for managers */}
-              {user?.isManager && (
+              {user?.isAdmin && (
                 <CustomLink
                   className="contentin"
                   to="/ManagerMainPage/dashboard"

@@ -2,18 +2,29 @@ import React, { useState, useEffect } from "react";
 import "../OrderTrack/ordertrack.css";
 import { useAuth } from "../../hooks/useauth";
 
+import { toast } from "react-toastify";
 function Tracking() {
   const backgroundImageUrl = "/thumbnail/map.png"; // Make sure this URL points to your actual map image
   const [progress, setProgress] = useState(0);
-  const { orders, fetchorders } = useAuth();
+  const { orders, loading, error } = useAuth();
 
+  if (loading) {
+    toast.error("Loading Orders");
+  }
+  if (error) {
+    toast.error("ERRORRRR LOL");
+  }
   useEffect(() => {
-    fetchorders();
-  }, [fetchorders]);
+    if (loading) {
+      toast.info("Loading Orders");
+    }
+    if (error) {
+      toast.error(`Error: ${error.message}`);
+    }
+  }, [loading, error]); // Adding dependencies to useEffect
 
   const containerStyle = {
     backgroundImage: `url(${backgroundImageUrl})`,
-    // Add additional styles as needed
   };
 
   const stages = [
@@ -46,7 +57,22 @@ function Tracking() {
       </div>{" "}
       <div>
         <h3 className="thank-you-text">Order Details</h3>
-        <span></span>
+        <div>
+          {orders.length > 0 ? (
+            <ul>
+              {orders.map((order) => (
+                <li key={order.id}>
+                  <h3>Order ID: {order.id}</h3>
+                  <p>Customer Name: {order.name}</p>
+                  <p>Address: {order.address}</p>
+                  <p>Total Price: ${order.totalPrice.toFixed(2)}</p>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p>No orders to display.</p>
+          )}
+        </div>
       </div>
     </div>
   );
