@@ -32,7 +32,7 @@ const About = () => {
             and receive their groceries delivered to their home.
           </p>
           <br></br>
-          <p>Website Developed By: Alan, Connie, Hiba, Tanya, Phuc, Rohan</p>
+          <p>Website Developed By: Alan, Connie, Hiba, Tanya, Phuc</p>
         </div>
       </div>
     </div>

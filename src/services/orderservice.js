@@ -22,3 +22,27 @@ export const createOrder = async (order) => {
     throw error; // Or handle the error as you see fit
   }
 };
+
+export const fetchOrders = async () => {
+  const user = getUser(); // Assume getUser() retrieves the current user and token
+  if (!user || !user.token) {
+    throw new Error("User is not authenticated");
+  }
+
+  try {
+    const response = await fetch("http://localhost:5001/api/orders/", {
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
+    });
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error fetching orders:', error);
+    // Handle errors appropriately in your application
+  }
+};
+
