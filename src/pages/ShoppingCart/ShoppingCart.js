@@ -79,7 +79,7 @@ function ShoppingCart() {
   // Calculate weight fee
   const weightthreshold = 20; // This should be in weight units (e.g., pounds), not in dollars
   const weightfee = 5;
-  const weightfeeapplicable = totalWeight > weightthreshold;
+  const weightfeeapplicable = totalWeight >= weightthreshold;
   const totalFee = weightfeeapplicable ? weightfee : 0;
 
   // Calculate the final total
