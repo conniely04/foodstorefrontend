@@ -18,7 +18,7 @@ const Contact = () => {
 
         <p>Instagram: Online_Food_Store</p>
 
-        <p>Website Developed By: Alan, Connie, Hiba, Tanya, Phuc, Rohan</p>
+        <p>Website Developed By: Alan, Connie, Hiba, Tanya, Phuc</p>
       </div>
     </div>
   );
