@@ -1,25 +1,21 @@
+// OrderTracking.js
 import React, { useState, useEffect } from 'react';
 import './OrderTracking.css';
-import { FaTruckMoving, FaCheck, FaTimesCircle } from 'react-icons/fa';
+import { FaTruckMoving, FaCheck } from 'react-icons/fa';
 import ManagerSidebar from '../ManagerSidebar/ManagerSidebar';
+import { fetchOrders } from '../../../../../services/orderservice';
 
 function OrderTracking() {
     const [orders, setOrders] = useState([]);
 
     useEffect(() => {
-        fetchOrders().then(data => setOrders(data));
+        fetchOrders().then(fetchedOrders => {
+            if (fetchedOrders) {
+                setOrders(fetchedOrders);
+            }
+        });
     }, []);
 
-    const updateOrderStatus = (orderId, newStatus) => {
-        changeOrderStatus(orderId, newStatus).then(() => {
-            setOrders(orders.map(order => {
-                if (order.id === orderId) {
-                    return { ...order, status: newStatus };
-                }
-                return order;
-            }));
-        });
-    };
 
     return (
         <div className="order-tracking-container">
@@ -33,17 +29,17 @@ function OrderTracking() {
                             <p className="order-date">{order.date}</p>
                         </div>
                         <div className="order-info">
-                            <p>Customer: {order.customerName}</p>
-                            <p className={`order-status ${order.status.toLowerCase()}`}>Status: {order.status}</p>
+                            <p>Customer: {order.name}</p>
+                            <p className={`order-status`}>Status: {order.status}</p>
                         </div>
                         <div className="order-actions">
-                            <button className="action-btn" onClick={() => updateOrderStatus(order.id, 'Processing')}>
+                            <button className="action-btn" >
                                 <FaTruckMoving /> Processing
                             </button>
-                            <button className="action-btn" onClick={() => updateOrderStatus(order.id, 'On its way')}>
+                            <button className="action-btn" >
                                 <FaTruckMoving /> On its way
                             </button>
-                            <button className="action-btn" onClick={() => updateOrderStatus(order.id, 'Completed')}>
+                            <button className="action-btn" >
                                 <FaCheck /> Completed
                             </button>
                         </div>
@@ -55,17 +51,3 @@ function OrderTracking() {
 }
 
 export default OrderTracking;
-
-// Mock functions (replace with real API calls)
-const fetchOrders = async () => {
-    // Sample data
-    return [
-        { id: 1, date: '2023-03-15', customerName: 'John Doe', status: 'Pending' },
-        // Add more orders here
-    ];
-};
-
-const changeOrderStatus = async (orderId, newStatus) => {
-    console.log(`Updating order ${orderId} to ${newStatus}`);
-    return Promise.resolve();
-};
